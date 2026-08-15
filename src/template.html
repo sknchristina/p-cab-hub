@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-CAB Intelligence Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap">
+<style>
+:root{
+  --navy-900:#0d2244; --navy-800:#123058; --navy-700:#1a3f6f; --navy-600:#24507f;
+  --orange:#e8721f; --orange-dk:#c85c10; --orange-lt:#fdf0e3;
+  --cream:#fdf3e6; --paper:#fff;
+  --ink:#161e27; --ink-2:#33414f; --ink-3:#5b6977;
+  --line:#e2e0da; --line-2:#cfd6de;
+  --ok:#2f7a45; --mid:#b8860b; --low:#b4462f;
+  --shadow:0 1px 2px rgba(13,34,68,.06),0 6px 20px rgba(13,34,68,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--cream);color:var(--ink);line-height:1.9;font-size:17.5px;font-weight:500;-webkit-font-smoothing:antialiased;letter-spacing:-.004em}
+h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.4}
+a{color:var(--navy-700)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 30px}
+
+/* header */
+.hdr{position:relative;background:linear-gradient(135deg,var(--navy-900) 0%,var(--navy-700) 65%,var(--navy-600) 100%);color:#fff;overflow:hidden}
+.hdr::after{content:"";position:absolute;top:-120px;right:-60px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,rgba(232,114,31,.42),rgba(232,114,31,.05) 70%)}
+.hdr-in{position:relative;z-index:2;padding:26px 0 22px;display:flex;align-items:center;
+  justify-content:space-between;gap:22px;flex-wrap:wrap}
+.hdr h1{font-size:35px;letter-spacing:-.035em}
+.hdr .meta{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  padding:6px 14px;border-radius:999px;font-size:13.4px;color:#e2edfa;font-weight:500}
+.pill b{color:#fff}
+
+/* soft slanted (folder) tabs */
+.tabbar{position:sticky;top:0;z-index:50;background:var(--navy-800);padding-top:11px;
+  box-shadow:0 3px 12px rgba(13,34,68,.20)}
+.tabs{display:flex;gap:4px;align-items:flex-end;max-width:1400px;margin:0 auto;padding:0 20px;
+  overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{position:relative;z-index:1;flex:1 1 0;min-width:112px;border:0;background:transparent;cursor:pointer;
+  color:#a9c0dc;font:inherit;font-size:14.8px;font-weight:700;letter-spacing:-.01em;
+  padding:13px 18px 12px;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:color .2s ease,padding .2s ease}
+.tab::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;z-index:-1;
+  background:rgba(255,255,255,.10);
+  border-radius:13px 13px 0 0;
+  transform:perspective(9px) rotateX(1.7deg);
+  transform-origin:bottom center;
+  transition:background .2s ease,box-shadow .2s ease}
+.tab:hover{color:#fff}
+.tab:hover::before{background:rgba(255,255,255,.19)}
+.tab.on{color:#fff;padding-top:17px;padding-bottom:13px;z-index:4}
+.tab.on::before{background:linear-gradient(180deg,#f08a3e 0%,var(--orange) 60%,var(--orange-dk) 100%);
+  box-shadow:0 -4px 14px rgba(232,114,31,.38), inset 0 1px 0 rgba(255,255,255,.28)}
+.tab:focus-visible{outline:2px solid #fff;outline-offset:-4px;border-radius:10px}
+
+/* panels */
+main.wrap{padding:38px 30px 40px}
+.panel{display:none;animation:fade .2s ease}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec-h{margin:0 0 10px}
+.sec-h h2{font-size:29px;letter-spacing:-.035em}
+.sec-h .desc{margin:0;font-size:15.2px;color:var(--ink-3);max-width:900px;font-weight:500}
+.sub-h{margin:34px 0 14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sub-h h3{font-size:19.5px;color:var(--navy-800)}
+.sub-h .note{font-size:13.4px;color:var(--ink-3);font-weight:500}
+.sec{margin-bottom:44px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:hidden}
+.card-b{padding:4px 0}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:15.6px}
+.tbl th{background:#f4f7fb;color:var(--navy-800);font-size:13.9px;font-weight:800;letter-spacing:.02em;text-align:left;
+  padding:16px 22px;border-bottom:2px solid var(--line-2)}
+.tbl td{padding:20px 22px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.8}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#fafbfd}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl .dt{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--navy-800);font-weight:800;font-size:15px}
+.ttl{font-size:16.2px;font-weight:700;color:var(--navy-900);line-height:1.6}
+.jrn{font-size:13.8px;color:var(--ink-3);margin-top:6px;line-height:1.7;font-weight:500}
+.lnk{margin-top:9px;display:flex;gap:14px;flex-wrap:wrap;font-size:13.4px}
+.lnk a{font-weight:600;text-decoration:none}
+.lnk a:hover{text-decoration:underline}
+.lnk span{color:var(--ink-3)}
+.tag{display:inline-block;font-size:12.4px;font-weight:800;padding:3px 9px;border-radius:6px;margin-right:5px;white-space:nowrap}
+.tag.ty{background:#eef3f9;color:var(--navy-700);border:1px solid var(--line-2)}
+.tag.RCT{background:#e7effa;color:#1a4f9c;border-color:#c3d6ef}
+.tag.Meta,.tag.NMA{background:#f0eaf8;color:#5b3a8e;border-color:#d8cbec}
+.tag.SR{background:#e6f2ea;color:var(--ok);border-color:#bfdcc9}
+.tag.GL{background:#fdeee0;color:var(--orange-dk);border-color:#f5d3b4}
+.tag.pc{background:var(--navy-800);color:#fff}
+.tag.dg{background:var(--orange-lt);color:var(--orange-dk);border:1px solid #f2d5b8}
+.lvl{display:inline-block;font-size:13.2px;font-weight:800;padding:5px 15px;border-radius:999px;white-space:nowrap}
+.lvl.hi{background:#e6f2ea;color:var(--ok);border:1px solid #bfdcc9}
+.lvl.md{background:#fdf3dc;color:var(--mid);border:1px solid #ecd9a6}
+.lvl.lo{background:#fbe9e4;color:var(--low);border:1px solid #f0cabd}
+
+/* two-column message boxes */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:0;align-items:start}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:hidden;
+  display:flex;flex-direction:column}
+.box-h{padding:17px 26px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.box-h h3{font-size:18.6px;color:#fff;letter-spacing:-.02em}
+.box-h .cnt{font-size:13.2px;color:rgba(255,255,255,.82);white-space:nowrap;font-weight:500}
+.box-h.navy{background:linear-gradient(135deg,var(--navy-800),var(--navy-600))}
+.box-h.orange{background:linear-gradient(135deg,var(--orange-dk),var(--orange))}
+.box .bl.flat{gap:0;padding:0}
+.box .bl.flat>li{border:0;border-left:0;border-radius:0;box-shadow:none;background:transparent;
+  padding:24px 26px;border-bottom:1px solid var(--line)}
+.box .bl.flat>li:last-child{border-bottom:0}
+.box .bl.flat .lbl{font-size:15.5px;line-height:1.5;margin-bottom:10px}
+.box .bl.flat .txt{font-size:15px;line-height:1.9;font-weight:500}
+.box .bl.flat .hint{font-size:13.2px;line-height:1.7;margin-top:10px;padding-top:9px;border-top:1px dashed var(--line-2)}
+@media(max-width:980px){.duo{grid-template-columns:1fr}}
+
+/* evidence landscape cards */
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+@media(max-width:1100px){.lgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.lgrid{grid-template-columns:1fr}}
+.lcard{background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);
+  overflow:hidden;display:flex;flex-direction:column;height:100%}
+.lcard-h{padding:18px 26px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;
+  justify-content:space-between;gap:12px}
+.lcard-h .nm{font-size:17.5px;font-weight:800;color:var(--navy-800);letter-spacing:-.02em;line-height:1.4}
+.lcard-b{padding:20px 26px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.lnum{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lnum .big{font-size:34px;font-weight:800;color:var(--navy-800);letter-spacing:-.03em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.lnum .big small{font-size:15px;font-weight:700;color:var(--ink-3);margin-left:3px}
+.lnum .split{font-size:13px;color:var(--ink-3);font-weight:600}
+.lnum .split b{color:var(--navy-700);font-weight:800}
+.lbar{display:flex;height:11px;border-radius:6px;overflow:hidden;background:#eef1f5;border:1px solid var(--line-2)}
+.lbar i{display:block;height:100%}
+.lbar .s1{background:var(--navy-700)} .lbar .s2{background:var(--orange)} .lbar .s3{background:#c9d2dc}
+.ldrugs{display:flex;flex-wrap:wrap;gap:7px}
+.dchip{font-size:12.4px;font-weight:700;padding:4px 10px;border-radius:7px;background:#eef3f9;
+  color:var(--navy-700);border:1px solid var(--line-2);white-space:nowrap}
+.dchip.zas{background:var(--orange-lt);color:var(--orange-dk);border-color:#f2d5b8}
+.dchip.none{background:#fbe9e4;color:var(--low);border-color:#f0cabd}
+.lcard.wide{grid-column:1/-1}
+.lcard.wide .lcard-b{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:20px 28px;align-items:start}
+.lcard.wide .lnum{grid-column:1;align-self:start}
+.lcard.wide .lbar{grid-column:1}
+.lcard.wide .ldrugs{grid-column:1}
+.lcard.wide .pts{grid-column:2;grid-row:1/4;grid-template-columns:repeat(2,1fr);display:grid;gap:10px 26px;align-content:start}
+@media(max-width:760px){.lcard.wide .lcard-b{grid-template-columns:1fr}.lcard.wide .pts{grid-column:1;grid-row:auto;grid-template-columns:1fr}}
+.lnote{font-size:13px;color:var(--ink-3);margin-top:18px;font-weight:500}
+.lnote b{color:var(--navy-700)}
+.lleg{display:flex;gap:18px;flex-wrap:wrap;font-size:12.6px;color:var(--ink-3);margin-top:10px;font-weight:500}
+.lleg span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* reference links */
+.refs{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line-2);display:grid;gap:5px}
+.refs .rl{display:flex;gap:10px;align-items:baseline;font-size:13.3px;line-height:1.75;font-weight:500}
+.refs .rl .b{flex:0 0 auto;color:var(--orange-dk);font-weight:800;font-size:11.6px;letter-spacing:.04em}
+.refs a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent}
+.refs a:hover{color:var(--navy-700);border-bottom-color:var(--navy-700)}
+.refs a::after{content:" ↗";font-size:9.5px;color:var(--orange-dk)}
+.refs .noln{color:var(--ink-3)}
+
+/* safety signal */
+.safegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media(max-width:1000px){.safegrid{grid-template-columns:1fr}}
+.sbox{background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.sbox-h{padding:17px 26px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sbox-h h3{font-size:18.2px;color:#fff}
+.sbox-h .c{font-size:13.2px;color:rgba(255,255,255,.8);white-space:nowrap;background:rgba(255,255,255,.16);
+  border-radius:999px;padding:3px 10px;font-weight:700}
+.sbox-h.ppi{background:linear-gradient(135deg,#4a5b6e,#65788c)}
+.sbox-h.pcab{background:linear-gradient(135deg,var(--navy-800),var(--navy-600))}
+.sbox-h.zas{background:linear-gradient(135deg,var(--orange-dk),var(--orange))}
+.sitem{padding:24px 26px;border-bottom:1px solid var(--line)}
+.sitem:last-child{border-bottom:0}
+.sitem .lbl{font-size:15px;font-weight:800;color:var(--navy-800);line-height:1.5;margin-bottom:9px;letter-spacing:-.02em}
+.sitem .txt{font-size:14.6px;color:var(--ink-2);line-height:1.9;font-weight:500}
+.sitem .ev{font-size:11px;color:var(--ink-3);margin-top:9px;padding-top:8px;border-top:1px dashed var(--line-2);line-height:1.65}
+.snone{padding:32px 20px;text-align:center;color:var(--ink-3);font-size:14.8px;line-height:1.85;font-weight:500}
+
+/* overview cards */
+.ovlist{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.ovrow{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--navy-700);border-radius:13px;
+  padding:24px 26px 26px;box-shadow:var(--shadow);height:100%}
+@media(max-width:1060px){.ovlist{grid-template-columns:1fr}}
+.ovrow.week{border-top-color:var(--gold)}
+.ovrow.navy{border-top-color:var(--navy-700)}
+.ovrow.orange{border-top-color:var(--orange)}
+.ovrow .k{font-size:12.4px;font-weight:800;letter-spacing:.07em;color:var(--orange-dk);margin-bottom:8px}
+.ovrow .km-h{font-size:17.6px;margin-bottom:14px;line-height:1.55}
+.ovrow .chip{padding:6px 11px 7px}
+.ovrow .chip b{font-size:16.6px}
+.ovrow .chip i{font-size:11.6px}
+.ovrow .pts li{font-size:15.2px;line-height:1.82}
+
+/* key-message blocks */
+.km-h{font-size:19px;font-weight:700;color:var(--navy-800);line-height:1.55;letter-spacing:-.02em;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 16px}
+.chip{display:flex;flex-direction:column;gap:2px;background:linear-gradient(160deg,#fff6ec,#fdeade);
+  border:1px solid #f2d5b8;border-radius:10px;padding:9px 15px 10px;min-width:0}
+.chip b{font-size:18.6px;font-weight:800;color:var(--orange-dk);letter-spacing:-.02em;line-height:1.2;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip i{font-size:12.4px;font-style:normal;font-weight:500;color:#9a6a3c;white-space:nowrap}
+.chip.blue{background:linear-gradient(160deg,#f2f7fd,#e8f0f9);border-color:#cfdcec}
+.chip.blue b{color:var(--navy-700)} .chip.blue i{color:#6b7d92}
+.pts{margin:0;padding:0;list-style:none;display:grid;gap:11px}
+.pts li{position:relative;padding-left:20px;font-size:16px;line-height:1.82;color:var(--ink-2);font-weight:500}
+.pts li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:2px;
+  background:var(--orange);opacity:.85}
+.pts li b{color:var(--navy-800);font-weight:700}
+.pts.sm li{font-size:15px;padding-left:18px}
+.pts.sm li::before{width:5px;height:5px;top:.66em}
+
+/* inline emphasis */
+mark.st{background:linear-gradient(180deg,transparent 52%,#ffdcae 52%);color:#8a3f04;font-weight:700;
+  padding:0 1px;font-variant-numeric:tabular-nums}
+b.num{color:var(--navy-800);font-weight:700;font-variant-numeric:tabular-nums}
+b.dg{color:var(--navy-700);font-weight:700}
+b.kw{color:var(--ink);font-weight:700}
+
+/* weekly trend card */
+.wstat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.wstat>div{background:#f7f9fc;padding:17px 24px}
+.wstat .l{font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.wstat .v{font-size:25px;font-weight:800;color:var(--navy-800);letter-spacing:-.02em;line-height:1.25}
+.wstat .v small{font-size:11.5px;font-weight:600;color:var(--ink-3);margin-left:2px}
+.wstat .v.txt{font-size:17.2px;font-weight:800}
+@media(max-width:860px){.wstat{grid-template-columns:repeat(2,1fr)}}
+
+/* bullets */
+.bl{display:grid;gap:20px;margin:0;padding:0;list-style:none}
+.bl>li{position:relative;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--navy-700);
+  border-radius:13px;padding:24px 26px;box-shadow:var(--shadow)}
+.bl>li.acc{border-left-color:var(--orange)}
+.bl>li.warn{border-left-color:#c9a227;background:#fffdf6}
+.bl .lbl{font-size:16px;font-weight:800;color:var(--navy-800);margin-bottom:10px;line-height:1.5;letter-spacing:-.02em}
+.bl .txt{font-size:15.4px;color:var(--ink-2);line-height:1.9;font-weight:500}
+.ph{color:#9aa7b4;font-style:italic}
+.edit{outline:none;border-radius:4px;border-bottom:1px dotted var(--line-2);transition:background .15s}
+.edit:hover{background:#f3f7fc}
+.edit:focus{background:#fff8ee;box-shadow:0 0 0 2px var(--orange-lt);border-bottom-color:transparent}
+
+.expand{background:none;border:0;color:var(--orange-dk);font:inherit;font-size:13.6px;font-weight:700;cursor:pointer;padding:0;margin-top:8px}
+.expand:hover{text-decoration:underline}
+.abs{display:none;font-size:14.2px;color:var(--ink-3);line-height:1.8;margin-top:9px;padding-top:9px;border-top:1px dashed var(--line-2);font-weight:500}
+tr.open .abs{display:block}
+.empty{padding:34px 20px;text-align:center;color:var(--ink-3);font-size:13px}
+
+/* archive month picker */
+.mrow{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}
+.mbtn{border:1px solid var(--line-2);background:var(--paper);border-radius:9px;padding:9px 17px;font:inherit;font-size:14.8px;font-weight:600;
+  color:var(--ink-2);cursor:pointer;font-variant-numeric:tabular-nums}
+.mbtn:hover{border-color:var(--orange)}
+.mbtn.on{background:var(--navy-800);border-color:var(--navy-800);color:#fff;font-weight:700}
+.mstat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.mstat>div{background:linear-gradient(160deg,#f7f9fc,#eef3f9);border:1px solid var(--line-2);border-radius:11px;padding:17px 22px}
+.mstat .l{font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.mstat .v{font-size:25px;font-weight:800;color:var(--navy-800);letter-spacing:-.02em;line-height:1.2}
+.mstat .s{font-size:13.2px;color:var(--ink-3);margin-top:4px;line-height:1.6;font-weight:500}
+
+/* footer */
+.foot{margin-top:10px;padding:0 0 40px}
+.golink{display:inline-flex;align-items:center;gap:9px;background:var(--navy-800);color:#fff;text-decoration:none;
+  padding:11px 20px;border-radius:10px;font-size:13.5px;font-weight:700;box-shadow:var(--shadow)}
+.golink:hover{background:var(--navy-700)}
+
+@media(max-width:1420px){.tab span:first-child{display:none}.tab{gap:0}}
+@media(max-width:1000px){.tabs{gap:5px}.tab{flex:0 0 auto;min-width:0;padding:13px 16px 12px}}
+@media(max-width:860px){
+  .ovrow{grid-template-columns:1fr;gap:4px}
+  .mstat{grid-template-columns:repeat(2,1fr)}
+  .hdr h1{font-size:23px}
+  .tab{min-width:118px;font-size:12.6px;padding:11px 12px 10px}
+}
+@media print{.tabbar,.expand,.mrow{display:none}.panel{display:block!important;page-break-before:always}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <h1>P-CAB Intelligence Hub</h1>
+    <div class="meta">
+      <span class="pill">데이터 기준일 <b id="mDate">—</b></span>
+      <span class="pill">연결 DB 문헌 <b id="mTotal">—</b>건</span>
+      <span class="pill">P-CAB 관련 <b id="mPcab">—</b>건</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabbar">
+  <div class="tabs" role="tablist">
+    <button class="tab on" role="tab" data-p="p0"><span>📌</span>Overview</button>
+    <button class="tab" role="tab" data-p="p1"><span>📰</span>Weekly Update</button>
+    <button class="tab" role="tab" data-p="p1b"><span>🗄️</span>News Archive</button>
+    <button class="tab" role="tab" data-p="p2"><span>🧠</span>Evidence Intelligence</button>
+    <button class="tab" role="tab" data-p="p3"><span>🗺️</span>Evidence Landscape</button>
+    <button class="tab" role="tab" data-p="p5"><span>🛡️</span>Safety Signal</button>
+  </div>
+</nav>
+
+
+
+<main class="wrap">
+
+  <!-- ============ 0. Overview ============ -->
+  <section class="panel on" id="p0">
+    <div class="ovlist" id="ovlist"></div>
+  </section>
+
+  <!-- ============ 1. Weekly Update & Archive ============ -->
+  <section class="panel" id="p1">
+    <div class="sec-h" style="margin-bottom:16px">
+      <p class="desc" id="wkNote"></p>
+    </div>
+    <section class="box" id="wkTrend" style="margin-bottom:18px">
+      <header class="box-h navy"><h3>이번 주 트렌드 요약</h3><span class="cnt" id="wkChips"></span></header>
+      <div class="wstat" id="wkStats"></div>
+      <ul class="bl flat" id="wkBl"></ul>
+    </section>
+    <div class="card"><div class="card-b"><table class="tbl" id="weekTbl"></table></div></div>
+  </section>
+
+  <!-- ============ 1b. News Archive ============ -->
+  <section class="panel" id="p1b">
+    <div class="sec-h" style="margin-bottom:16px">
+      <p class="desc">출판일 기준 분기(3개월) 단위 집계 · 분기를 선택하면 해당 기간 요약이 표시됩니다.</p>
+    </div>
+    <div class="mrow" id="mrow"></div>
+    <ul class="bl" id="archBl"></ul>
+  </section>
+
+  <!-- ============ 2. Evidence Intelligence ============ -->
+  <section class="panel" id="p2">
+
+    <div class="duo">
+      <section class="box">
+        <header class="box-h navy"><h3>P-CAB 계열 핵심 메시지</h3><span class="cnt">클래스 이펙트 관점</span></header>
+        <ul class="bl flat" id="msgClass"></ul>
+      </section>
+      <section class="box">
+        <header class="box-h orange"><h3>자스타프라잔 핵심 메시지</h3><span class="cnt" id="zasNote"></span></header>
+        <ul class="bl flat" id="msgProd"></ul>
+      </section>
+    </div>
+
+    <div class="sub-h" style="margin-top:32px"><h3>데이터 해석 시 주의할 점</h3></div>
+    <ul class="bl" id="msgCaveat"></ul>
+  </section>
+
+  <!-- ============ 3. Evidence Landscape ============ -->
+  <section class="panel" id="p3">
+    <div class="sec-h" style="margin-bottom:16px">
+      <p class="desc">연결 DB의 P-CAB 관련 문헌 278건을 임상 영역별로 집계한 결과입니다.</p>
+    </div>
+    <div class="lgrid" id="lgrid"></div>
+    <p class="lnote">근거 수준 판정 — <b>높음</b> 지침·메타분석 5건 이상 &amp; RCT 5건 이상 · <b>중간</b> 지침·메타분석 2건 이상 또는 RCT 3건 이상 · <b>낮음</b> 그 외</p>
+  </section>
+
+  <!-- ============ 5. Safety Signal ============ -->
+  <section class="panel" id="p5">
+    <div class="sec-h" style="margin-bottom:16px">
+      <p class="desc">출판일 기준 반기(6개월) 단위 · PPI · P-CAB 계열 · 자스타프라잔의 안전성 관련 문헌을 분리 집계했습니다.</p>
+    </div>
+    <div class="mrow" id="srow"></div>
+    <div class="safegrid" id="sgrid"></div>
+  </section>
+
+  <div class="foot">
+
+
+  </div>
+</main>
+
+<script>/* ==== DATA ==== */</script>
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DRUGS='자스타프라잔|보노프라잔|테고프라잔|펙수프라잔|케베프라잔|리나프라잔|레바프라잔|에소메프라졸|란소프라졸|판토프라졸|오메프라졸|라베프라졸';
+const KW='비열등성|비열등한|우월했|우월하|우월성|유의하게|유의한|직접비교|간접비교|head-to-head|근거 격차|PPI 대체 옵션';
+const RX=new RegExp(
+  '((?:RR|OR|HR|GMR)\\s*\\d[\\d.]*(?:\\s*[(,]\\s*95%\\s*CI\\s*[\\d.,\\s–\\-~]+\\)?)?)'  // 1 effect size
+ +'|(95%\\s*CI\\s*\\d[\\d.]*\\s*[–\\-~]\\s*\\d[\\d.]*)'
+ +'|(p\\s*(?:&lt;|&gt;|=)\\s*0?\\.\\d+)'                                             // 2 p-value
+ +'|(\\d[\\d,]*(?:\\.\\d+)?\\s*(?:%p|%))'                                            // 3 percent
+ +'|(\\d[\\d,]*\\s*건)'                                                              // 4 count
+ +'|('+DRUGS+')'                                                                     // 5 drug
+ +'|('+KW+')','g');                                                                  // 6 keyword
+function rich(s){
+  return esc(s).replace(/&lt;(\/?)b&gt;/g,'<$1b>').replace(/&lt;(\/?)b class="(\w+)"&gt;/g,'<$1b class="$2">').replace(RX,(m,a,b,c,d,e,f)=>
+    (a||b||c) ? '<mark class="st">'+m+'</mark>'
+  : d         ? '<b class="num">'+m+'</b>'
+  : e         ? '<b class="dg">'+m+'</b>'
+  :             '<b class="kw">'+m+'</b>');
+}
+const D=window.APP;
+const TYAB={'Systematic Review':'SR','Guideline':'GL','Meta':'Meta','NMA':'NMA','RCT':'RCT','Review':'Review','etc.':'기타'};
+const tyCls=t=>({'Systematic Review':'SR','Guideline':'GL'}[t]||t.replace(/[^A-Za-z]/g,''));
+const LV={'높음':'hi','중간':'md','낮음':'lo'};
+
+$('#mDate').textContent=D.gen;
+$('#mTotal').textContent=D.total.toLocaleString();
+$('#mPcab').textContent=D.pcab.toLocaleString();
+
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('on'));
+  $$('.panel').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');$('#'+t.dataset.p).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+
+/* ---------- Overview ---------- */
+(function(){
+  $('#ovlist').innerHTML=D.overview.map(o=>`
+    <div class="ovrow ${o.c||''}">
+      <div class="k">${esc(o.k)}</div>
+      <div class="km-h">${rich(o.h)}</div>
+      ${chipHtml(o.chips)}
+      <ul class="pts">${o.pts.map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+    </div>`).join('');
+})();
+
+/* ---------- 1) Week Update ---------- */
+(function(){
+  const T=D.weekTrend;
+  $('#wkChips').textContent=`${D.win[0]} ~ ${D.win[1]}`;
+  $('#wkStats').innerHTML=T.stats.map(([l,v,u])=>
+    `<div><div class="l">${esc(l)}</div><div class="v${u?'':' txt'}">${esc(v)}${u?`<small>${u}</small>`:''}</div></div>`).join('');
+  $('#wkBl').innerHTML=T.bullets.map(b=>`<li class="${b.cls||''}">
+    <div class="km-h">${rich(b.h)}</div>${chipHtml(b.chips)}
+    <ul class="pts">${b.pts.map(p=>`<li>${rich(p)}</li>`).join('')}</ul></li>`).join('');
+})();
+(function(){
+  const w=D.weekly;
+  $('#wkNote').textContent=`${D.win[0]} ~ ${D.win[1]} 출판 · ${w.length}건`+(D.weekly_dup?` (중복 ${D.weekly_dup}건 제외)`:'');
+  if(!w.length){$('#weekTbl').innerHTML=`<tbody><tr><td class="empty">해당 기간 신규 문헌이 없습니다.</td></tr></tbody>`;return;}
+  $('#weekTbl').innerHTML=
+   `<thead><tr><th style="width:96px">출판일</th><th style="width:44%">논문 / 저널 / 논문 링크</th><th>핵심 요약</th></tr></thead>
+    <tbody>${w.map(r=>`<tr>
+      <td class="dt">${esc(r.pd)}</td>
+      <td>
+        <div style="margin-bottom:5px"><span class="tag ty ${tyCls(r.ty)}">${TYAB[r.ty]||r.ty}</span>${r.p?'<span class="tag pc">P-CAB</span>':''}${r.d.slice(0,2).map(d=>`<span class="tag dg">${esc(d)}</span>`).join('')}</div>
+        <div class="ttl">${esc(r.t)}</div>
+        <div class="jrn">${esc(r.a)}${r.a&&r.j?' · ':''}${esc(r.j)}</div>
+        <div class="lnk">${r.u?`<a href="${esc(r.u)}" target="_blank" rel="noopener">원문 ↗</a>`:''}${r.id?`<span>${esc(r.id)}</span>`:''}</div>
+      </td>
+      <td><div class="edit" contenteditable="true" style="font-size:15.6px;color:var(--ink-2);line-height:1.9;font-weight:500">${rich(r.sum)}</div>
+          <div class="abs">${esc(r.s)}</div>
+          <button class="expand">원문 초록요약 보기</button></td>
+    </tr>`).join('')}</tbody>`;
+})();
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.expand'); if(!b) return;
+  const tr=b.closest('tr'); tr.classList.toggle('open');
+  b.textContent=tr.classList.contains('open')?'원문 초록요약 접기':'원문 초록요약 보기';
+});
+
+/* ---------- 2) News Archive ---------- */
+(function(){
+  const A=D.archive; let cur=0;
+  $('#mrow').innerHTML=A.map((a,i)=>`<button class="mbtn${i===0?' on':''}" data-i="${i}">${a.m}</button>`).join('');
+  function draw(){
+    const a=A[cur];
+    $('#archBl').innerHTML=`
+      <li><div class="km-h">${rich(a.hA)}</div>${chipHtml(a.chipsA)}
+        <ul class="pts">${a.ptsA.map(p=>`<li>${rich(p)}</li>`).join('')}</ul></li>
+      <li class="acc"><div class="km-h">${rich(a.hB)}</div>${chipHtml(a.chipsB)}
+        <ul class="pts">${a.ptsB.map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+        ${refHtml(a.refsB)}</li>`;
+  }
+  $('#mrow').addEventListener('click',e=>{
+    const b=e.target.closest('.mbtn'); if(!b) return;
+    $$('.mbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    cur=+b.dataset.i; draw();
+  });
+  draw();
+})();
+
+/* ---------- 3) Evidence Intelligence ---------- */
+function chipHtml(c,cls){
+  if(!c||!c.length) return '';
+  return '<div class="chips">'+c.map(([v,l])=>`<span class="chip ${cls||''}"><b>${esc(v)}</b><i>${esc(l)}</i></span>`).join('')+'</div>';
+}
+function refHtml(refs){
+  if(!refs||!refs.length) return '';
+  return '<div class="refs">'+refs.map(r=>`<div class="rl"><span class="b">근거</span>${
+    r.u?`<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>`:`<span class="noln">${esc(r.t)}</span>`}</div>`).join('')+'</div>';
+}
+function bullets(el,arr){
+  el.innerHTML=arr.map(b=>`<li class="${b.cls||''}">
+    <div class="km-h">${rich(b.h)}</div>${chipHtml(b.chips)}
+    <ul class="pts">${b.pts.map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+    ${refHtml(b.refs)}</li>`).join('');
+}
+bullets($('#msgClass'),D.intel.class);
+$('#zasNote').textContent=`연결 DB 내 자스타프라잔 관련 ${D.zas}건`;
+bullets($('#msgProd'),D.intel.prod);
+bullets($('#msgCaveat'),D.intel.caveat.map(b=>({...b,cls:'warn'})));
+
+/* ---------- 4) Evidence Landscape ---------- */
+(function(){
+  const C=D.cards, mx=Math.max(...C.map(c=>c.n));
+  $('#lgrid').innerHTML=C.map(c=>{
+    const w=v=>(c.n?(v/c.n*100):0).toFixed(1);
+    const lv=c.level==='높음'?'hi':(c.level==='중간'?'md':(c.level==='낮음'?'lo':''));
+    const drugs=(c.drugs||[]).map(([k,v])=>`<span class="dchip ${k==='자스타프라잔'?'zas':''}">${esc(k)} ${v}</span>`).join('')
+      + (c.zas?'':`<span class="dchip none">자스타프라잔 0</span>`);
+    return `<article class="lcard${c.area==='기타 영역'?' wide':''}">
+      <header class="lcard-h">
+        <div class="nm">${esc(c.area)}</div>
+        ${lv?`<span class="lvl ${lv}">${esc(c.level)}</span>`:''}
+      </header>
+      <div class="lcard-b">
+        <div class="lnum">
+          <span class="big">${c.n}<small>건</small></span>
+          <span class="split">지침·메타분석 <b>${c.hi}</b> · RCT <b>${c.rct}</b> · 기타 <b>${c.oth}</b></span>
+        </div>
+        <div class="lbar" title="지침·메타분석 ${c.hi} / RCT ${c.rct} / 기타 ${c.oth}">
+          <i class="s1" style="width:${w(c.hi)}%"></i><i class="s2" style="width:${w(c.rct)}%"></i><i class="s3" style="width:${w(c.oth)}%"></i>
+        </div>
+        <div class="ldrugs">${drugs}</div>
+        <ul class="pts sm">${(c.pts||[]).map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+      </div>
+    </article>`;
+  }).join('')
+  + '';
+  $('.lnote').insertAdjacentHTML('afterend',
+   `<div class="lleg"><span><i class="sw" style="background:var(--navy-700)"></i>지침·메타분석</span>
+    <span><i class="sw" style="background:var(--orange)"></i>RCT</span>
+    <span><i class="sw" style="background:#c9d2dc"></i>기타(관찰연구·원저 등)</span></div>`);
+})();
+
+/* ---------- 6) Safety Signal ---------- */
+(function(){
+  const S=D.safety; let cur=0;
+  $('#srow').innerHTML=S.map((s,i)=>`<button class="mbtn${i===0?' on':''}" data-i="${i}">${esc(s.k)}</button>`).join('');
+  const CLS={PPI:'ppi',PCAB:'pcab',ZAS:'zas'};
+  function draw(){
+    const s=S[cur];
+    $('#sgrid').innerHTML=s.groups.map(g=>`
+      <section class="sbox">
+        <header class="sbox-h ${CLS[g.id]}"><h3>${esc(g.name)}</h3><span class="c">안전성 관련 ${g.n}건</span></header>
+        ${g.items.length? g.items.map(it=>`<div class="sitem">
+            <div class="km-h" style="font-size:16.6px">${rich(it.h)}</div>
+            ${chipHtml(it.chips,'blue')}
+            <ul class="pts sm">${(it.pts||[]).map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+            ${refHtml(it.refs)}</div>`).join('')
+          : `<div class="snone">${s.period} 중 연결 DB에 수록된<br>자스타프라잔 안전성 문헌이 없습니다.</div>`}
+      </section>`).join('');
+  }
+  $('#srow').addEventListener('click',e=>{
+    const b=e.target.closest('.mbtn'); if(!b) return;
+    [...$('#srow').children].forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    cur=+b.dataset.i; draw();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>

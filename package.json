@@ -1,0 +1,11 @@
+{
+  "name": "pcab-intelligence-hub",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "P-CAB Intelligence Hub — Notion 문헌 DB 기반 학술 대시보드",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

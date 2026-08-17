@@ -1,0 +1,1159 @@
+{
+  "_readme": "이 파일이 앱의 '해석 문안'입니다. 숫자·문헌목록은 빌드 시 Notion에서 자동 생성되고, 여기 적힌 문장만 사람이 검토·승인합니다. 수정 후 커밋하면 배포됩니다.",
+  "window": [
+    "2026-08-04",
+    "2026-08-14"
+  ],
+  "overview": [
+    {
+      "k": "이번 주 핵심 이슈",
+      "c": "week",
+      "h": "P-CAB 기반 이중요법 — 클래스 근거 추가 확보",
+      "chips": [
+        [
+          "6건",
+          "신규 문헌"
+        ],
+        [
+          "3건",
+          "RCT"
+        ],
+        [
+          "3건",
+          "H. pylori"
+        ]
+      ],
+      "pts": [
+        "케베프라잔-아목시실린 이중요법이 에소메프라졸 기반 대비 <b>비열등성</b> 입증 — 87.9% 대 80.3% (ITT)",
+        "2차 치료에서 10일 비스무스 사제요법이 14일 순차요법을 크게 앞섬 — 87.3% 대 60.5%",
+        "2025 한국 가이드라인의 순차요법 삭제 방향이 실측으로 재확인됨"
+      ]
+    },
+    {
+      "k": "P-CAB 계열 핵심 메시지",
+      "c": "navy",
+      "h": "중증 미란성 식도염과 H. pylori 제균, 두 핵심 적응증에서 PPI 대비 우위",
+      "chips": [
+        [
+          "2개국",
+          "지침 채택"
+        ],
+        [
+          "LA C/D",
+          "최대 이점 구간"
+        ]
+      ],
+      "pts": [
+        "중증(LA C/D) 치유·유지에서 PPI 대비 이점이 지침·메타분석으로 확립",
+        "2025 한국·2024 일본 가이드라인이 모두 <b>PPI 대체 옵션</b>으로 명시",
+        "단, 고용량·이중지연방출형 PPI 대비 우월성은 일관되지 않음"
+      ]
+    },
+    {
+      "k": "자스타프라잔 핵심 메시지",
+      "c": "orange",
+      "h": "3상 2건 확보, 그러나 계열 최대 영역인 제균은 공백",
+      "chips": [
+        [
+          "2건",
+          "3상 비열등성 입증"
+        ],
+        [
+          "100%",
+          "위궤양 8주 PP 치유율"
+        ],
+        [
+          "0건",
+          "H. pylori 제균 근거"
+        ]
+      ],
+      "pts": [
+        "미란성 식도염(대조 에소메프라졸)·위궤양(대조 란소프라졸) 3상에서 비열등성 입증",
+        "NMA에서 보노프라잔 대비 8주 치유율 우월 — RR 1.10 (95% CI 1.01–1.21), 단 <b>간접비교</b>",
+        "연결 DB 내 관련 문헌 11건, 145건 규모의 제균 영역에는 자사 자료 없음"
+      ]
+    }
+  ],
+  "weekTrend": {
+    "bullets": [
+      {
+        "h": "제균요법이 이번 주 근거의 절반 — RCT 3건 모두 H. pylori",
+        "chips": [
+          [
+            "87.3% 대 60.5%",
+            "2차 치료"
+          ],
+          [
+            "87.9% 대 80.3%",
+            "초치료"
+          ]
+        ],
+        "pts": [
+          "<b>요법 최적화</b> — 10일 비스무스 사제요법이 14일 순차요법보다 우월 (ITT, p<0.0001)",
+          "<b>요법 최적화</b> — 케베프라잔-아목시실린 이중요법, 에소메프라졸 기반 대비 비열등",
+          "<b>적응증 확장</b> — 파킨슨병 환자 대상 제균 위약대조 RCT 발표, 위장관 외 이득 탐색"
+        ],
+        "cls": ""
+      },
+      {
+        "h": "장기 산억제 안전성 신호 2건 — 모두 PPI 대상",
+        "chips": [
+          [
+            "OR 6.10",
+            "십이지장 백색반점"
+          ],
+          [
+            "3.5년",
+            "골다공증 발현까지"
+          ]
+        ],
+        "pts": [
+          "8주 이상 사용군에서 십이지장 산재성 백색반점 47% 대 15% (보정 OR 6.10)",
+          "FAERS 5,500만 건 분석에서 에소메프라졸만 골다공증 양성 신호",
+          "둘 다 관찰·자발보고 기반 — 인과관계는 미확립이나 대응 논거 준비 필요"
+        ],
+        "cls": "warn"
+      },
+      {
+        "h": "자사 제품 신규 근거 없음 — P-CAB은 케베프라잔 1건뿐",
+        "chips": [
+          [
+            "1건",
+            "성분 특정 P-CAB"
+          ],
+          [
+            "0건",
+            "자스타프라잔"
+          ]
+        ],
+        "pts": [
+          "P-CAB 관련 2건 중 성분이 특정된 것은 케베프라잔 1건",
+          "자스타프라잔 관련 신규 문헌은 발표되지 않음",
+          "비약물 대안으로 TIF 2.0 시술 1건 — 단일기관 28명 파일럿으로 근거 수준 낮음"
+        ],
+        "cls": "acc"
+      }
+    ]
+  },
+  "weeklySummaries": {
+    "PMID:42592677": "터키 GERD 환자 28명 대상 2세대 TIF 2.0 전향적/후향적 분석. 6개월 후 85.7%가 PPI를 중단하고 기저 식도염 환자 24명 전원이 내시경적 완전 치유에 도달했으나, 단일기관·소규모 파일럿으로 근거 수준은 낮다.",
+    "PMID:42595603": "대만 6개 기관 표준 삼제요법 실패 환자 155명 대상 2차 치료 개방표지 RCT. 제균율은 10일 비스무스 사제요법 87.3% 대 14일 순차요법 60.5%(ITT, p<0.0001)로 사제요법이 우월했으며, 2025 한국 가이드라인의 순차요법 삭제 방향과 일치한다.",
+    "PMID:42579018": "H. pylori 양성 파킨슨병 환자 대상 이중맹검 위약대조 RCT. 표준 삼제요법(오메프라졸+아목시실린+클래리스로마이신 14일)이 운동증상과 삶의 질에 미치는 영향을 평가한 연구로, 제균요법의 위장관 외 임상적 이득 가능성을 탐색한 근거다.",
+    "PMID:42572417": "H. pylori 초치료 환자 264명 대상 다기관 개방표지 RCT. 케베프라잔-아목시실린 이중요법 87.9% 대 에소메프라졸-아목시실린 80.3%(ITT)로 비열등성이 확인되었으며(p<0.001), P-CAB 기반 이중요법의 클래스 근거를 보강한다.",
+    "PMID:42591903": "일본 단일기관 후향적 관찰연구 200명. 산분비억제제(PPI 58·P-CAB 42) 8주 이상 사용군에서 십이지장 산재성 백색반점 양성률이 47% 대 15%(보정 OR 6.10)로 유의하게 높았으며, 장기 산억제의 점막 변화 감시 필요성을 시사하는 가설생성적 결과다.",
+    "PMID:42550808": "2004~2024년 FDA 이상반응보고시스템 5,500만 건 이상을 4개 신호탐지 알고리즘(ROR·PRR·BCPNN·EBGM)으로 분석한 약물감시 연구. 에소메프라졸이 4개 알고리즘 모두에서 골다공증 양성 신호를 보인 유일한 PPI였고 중앙 발현 잠복기는 3.5년으로, 장기 산억제요법의 골 관련 안전성 감시 필요성을 시사한다(보고 기반 연구로 인과관계 입증은 아님)."
+  },
+  "intel": {
+    "class": [
+      {
+        "h": "중증 미란성 식도염 — 치유와 유지 모두에서 PPI 대비 우위",
+        "chips": [
+          [
+            "RCT 19건",
+            "NMA 분석 대상"
+          ],
+          [
+            "RR 1.09",
+            "2주 치유"
+          ],
+          [
+            "RR 0.41",
+            "유지기 재발"
+          ]
+        ],
+        "pts": [
+          "초기 치료, 특히 중증(LA C/D)에서 PPI보다 우수한 치유 효과",
+          "보노프라잔 대 란소프라졸 <b>직접비교</b> 메타분석(RCT 7건, 4,903명)에서 유의한 우위",
+          "이상반응 발생률은 두 군이 유사",
+          "단, RCT 99건 NMA는 고용량·이중지연방출형 PPI 대비 우월성이 일관되지 않다고 지적"
+        ],
+        "refs": [
+          {
+            "t": "Potassium-competitive Acid Blockers Versus Proton Pump Inhibitors for Erosive Esophagitis: A Systematic Review and Network Meta-analysis (2026, NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41821493/"
+          },
+          {
+            "t": "Vonoprazan Versus Lansoprazole in the Healing and Maintenance Phase of Erosive Esophagitis (2025, Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40742526/"
+          },
+          {
+            "t": "P-CABs and PPIs for the healing and maintenance of erosive esophagitis. Esophagus 2026 (NMA, RCT 99건)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42295653/"
+          }
+        ]
+      },
+      {
+        "h": "H. pylori 제균 — 국내외 지침이 PPI 대체 옵션으로 공식 채택",
+        "chips": [
+          [
+            "17.8% → 33.3%",
+            "클래리스로마이신 내성률"
+          ],
+          [
+            "19,941명",
+            "메타분석 규모"
+          ]
+        ],
+        "pts": [
+          "2025 한국 4차 개정 — P-CAB의 PPI 대체 사용 명시, 순차요법 삭제, 비스무스 사제요법 조건부 1차",
+          "2024 일본 개정 — 1주 삼제요법에서 P-CAB이 PPI보다 높은 제균율",
+          "57개 연구 메타분석에서도 P-CAB 기반 요법이 PPI 기반보다 우수"
+        ],
+        "refs": [
+          {
+            "t": "Evidence-Based Guidelines for the Diagnosis and Treatment of H. pylori Infection in Korea: 2025 Revised Edition (Guideline)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42316523/"
+          },
+          {
+            "t": "Guidelines for the management of H. pylori infection in Japan: 2024 revised edition (Guideline)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41902905/"
+          },
+          {
+            "t": "Efficacy and safety of antibiotic regimens for H. pylori eradication (2026, Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42023096/"
+          }
+        ]
+      }
+    ],
+    "prod": [
+      {
+        "h": "미란성 식도염 — 3상 비열등 확보, NMA에서는 우월 신호",
+        "chips": [
+          [
+            "300명",
+            "3상 규모"
+          ],
+          [
+            "RR 1.10",
+            "vs 보노프라잔 8주"
+          ]
+        ],
+        "pts": [
+          "에소메프라졸 대비 8주 내시경 치유율에서 <b>비열등성</b> 입증",
+          "RCT 99건 NMA에서 보노프라잔 20mg QD 대비 8주 치유율 유의하게 높음 (95% CI 1.01–1.21)",
+          "4주 시점에서는 리나프라잔·보노프라잔과 동등",
+          "<b>간접비교</b> 결과이며 직접비교(head-to-head) RCT는 존재하지 않음"
+        ],
+        "refs": [
+          {
+            "t": "Phase 3 Study of Zastaprazan vs Esomeprazole in Erosive Esophagitis. Am J Gastroenterol 2024;120(2):353-361",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38976448/"
+          },
+          {
+            "t": "P-CABs and PPIs for the healing and maintenance of erosive esophagitis. Esophagus 2026 (NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42295653/"
+          }
+        ]
+      },
+      {
+        "h": "위궤양 — 8주 PP 치유율 100%, 가스트린 상승은 가역적",
+        "chips": [
+          [
+            "100%",
+            "자스타프라잔 (146/146)"
+          ],
+          [
+            "97.06%",
+            "란소프라졸 (132/136)"
+          ]
+        ],
+        "pts": [
+          "329명 3상에서 란소프라졸 30mg 대비 <b>비열등성</b> 입증",
+          "4주 치유율도 93.84% 대 91.91%로 우세",
+          "이상반응 발생률 유사, 가스트린은 치료 중 상승 후 종료 시 감소",
+          "2024년 4월 국내 미란성 GERD 승인 · 위궤양 및 NSAID 유발 궤양 예방 3상 진행 중"
+        ],
+        "refs": [
+          {
+            "t": "Phase 3 Trial of Zastaprazan in Patients with Gastric Ulcers. Gut Liver 2026;20(4):562-574",
+            "u": "https://doi.org/10.5009/gnl250334"
+          },
+          {
+            "t": "Zastaprazan: First Approval. Drugs 2024;84(7):863-866",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38916840/"
+          }
+        ]
+      }
+    ],
+    "caveat": [
+      {
+        "h": "직접비교와 간접비교(ITC)의 구분 필요",
+        "chips": [
+          [
+            "82.95% 대 90.70%",
+            "TADT 대 EBQT 제균율"
+          ]
+        ],
+        "pts": [
+          "자스타프라잔이 보노프라잔보다 우월하다는 결과는 NMA <b>간접비교</b> 추정치",
+          "연결 DB 내 두 약제의 직접비교(head-to-head) RCT는 없음",
+          "테고프라잔-아목시실린 이중요법은 표준 삼제요법 대비로는 우수하나, 최적화 비스무스 사제요법 대비로는 비열등 입증 실패"
+        ],
+        "refs": [
+          {
+            "t": "P-CABs and PPIs for the healing and maintenance of erosive esophagitis. Esophagus 2026 (NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42295653/"
+          },
+          {
+            "t": "Comparator Choice in H. pylori Eradication: Tegoprazan-Amoxicillin Dual Therapy Versus an Optimized Bismuth-Containing Quadruple Therapy (2026, Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42471066/"
+          }
+        ]
+      },
+      {
+        "h": "적응증·용량·투여기간이 다르면 결과 전용 불가",
+        "chips": [],
+        "pts": [
+          "제균요법의 고용량·이중요법 용법과 GERD·궤양 치료 용법은 서로 다름",
+          "10일 대 14일 — 이중요법은 14일 근소 우위, 사제요법은 차이 없음",
+          "6개월 유지에서는 표준용량 PPI와 보노프라잔이 유사, 저용량 PPI만 열등 — 대조군 용량이 해석을 좌우"
+        ],
+        "refs": [
+          {
+            "t": "Ten vs. 14 Days of Vonoprazan-Based Therapy for H. pylori (2026, Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41952476/"
+          },
+          {
+            "t": "P-CABs and PPIs for the healing and maintenance of erosive esophagitis. Esophagus 2026 (NMA, 유지요법 6개월)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42295653/"
+          }
+        ]
+      },
+      {
+        "h": "동아시아 자료 편중과 출혈 예방 영역의 결과 불일치",
+        "chips": [
+          [
+            "3,731명",
+            "전원 중국 자료"
+          ]
+        ],
+        "pts": [
+          "보노프라잔 10일 대 14일 메타분석 7건은 전원 중국 자료",
+          "보노프라잔-아목시실린 이중요법 메타분석 저자들도 서구·비아시아 일반화 근거 부족을 명시",
+          "아스피린 복용자 — PPI가 P-CAB 대비 상부위장관출혈 위험이 유사하거나 오히려 높음",
+          "저용량 아스피린 NMA — 판토프라졸 1위, 보노프라잔 2위로 순위 상충",
+          "ESGE 2026 — 내시경 지혈 후 P-CAB 역할에 합의 실패"
+        ],
+        "refs": [
+          {
+            "t": "Eradication of H. pylori With Vonoprazan-Amoxicillin Dual Therapy as an Alternative for Bismuth-Based Quadruple Therapy (2026, Meta)",
+            "u": "https://doi.org/10.1111/jgh.70565"
+          },
+          {
+            "t": "PPIs for prevention of upper and lower gastrointestinal bleeding in patients taking aspirin (2026, Meta)",
+            "u": "https://doi.org/10.1007/s00228-026-04135-2"
+          },
+          {
+            "t": "Pantoprazole and Vonoprazan Performed Well in Preventing Peptic Ulcer Recurrence in Low-Dose Aspirin Users (2024, NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38252210/"
+          },
+          {
+            "t": "ESGE Guideline Update 2026 — Endoscopic diagnosis and management of peptic ulcer bleeding",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42127996/"
+          }
+        ]
+      }
+    ]
+  },
+  "cardNotes": {
+    "미란성 식도염 치료": [
+      "NMA 다수 축적",
+      "중증(LA C/D)에서 PPI 대비 우위 반복 확인",
+      "고용량·이중지연방출형 PPI 대비 우월성은 일관되지 않음"
+    ],
+    "유지요법": [
+      "6개월 유지 근거는 표준용량 PPI와 대등 수준",
+      "보노프라잔은 란소프라졸 대비 재발 억제 RR 0.41의 직접비교 근거 보유",
+      "자스타프라잔 근거 1건으로 계열 내 최소"
+    ],
+    "H. pylori 제균 병용": [
+      "2025 한국·2024 일본 지침이 PPI 대체 옵션으로 명시",
+      "보노프라잔-아목시실린 이중요법 근거가 다수",
+      "대부분 동아시아 자료"
+    ],
+    "소화성궤양 치료": [
+      "자스타프라잔 3상 포함 — 란소프라졸 대비 비열등",
+      "보노프라잔 대 PPI 메타분석으로 클래스 근거 확보",
+      "RCT 12건으로 근거의 절반 가까이가 시험 자료"
+    ],
+    "NSAID 관련 위장관 보호": [
+      "RCT보다 관찰연구 비중이 높고 결과가 상충",
+      "ESGE 2026 — 내시경 지혈 후 P-CAB 역할에 합의 실패",
+      "자스타프라잔 NSAID 유발 궤양 예방 3상 진행 중, 공개 근거는 1건"
+    ],
+    "안전성·장기투여": [
+      "고가스트린혈증·점막변화 장기 감시 필요성이 지침·전문가 리뷰에서 반복 지적",
+      "제균요법 비교시험에서는 PPI 기반 대비 이상반응이 일관되게 낮음",
+      "자스타프라잔 자료 2건 — 장기 유지 안전성 3상은 2028년 완료 예정"
+    ],
+    "기타 영역": [
+      "약동학·약력학·DDI 25건 (중간)",
+      "상부위장관 출혈·ESD 후 궤양 18건 (중간)",
+      "비미란성 역류질환(NERD)·증상조절 11건 (중간)",
+      "식도외 증상·기타 적응증 11건 (중간)"
+    ]
+  },
+  "safety": {
+    "PPI": [
+      {
+        "h": "약물유발 현미경적 대장염의 최다 원인 약물",
+        "chips": [
+          [
+            "42%",
+            "원인 약물 비중 (29/69)"
+          ],
+          [
+            "12일",
+            "발현까지 중앙값"
+          ]
+        ],
+        "pts": [
+          "생검 확진 증례 69명(24개 연구) 등급화 결과 PPI가 1위",
+          "산분비억제제+NSAID 합산 시 전체의 52%",
+          "재생검 26예 중 22예에서 조직학적 정상화 — 중단으로 회복 가능"
+        ],
+        "refs": [
+          {
+            "t": "Drug-induced microscopic colitis: a systematic review of implicated agents and… (2026-07 · SR)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42517880/"
+          }
+        ]
+      },
+      {
+        "h": "FAERS 골다공증 신호 — 에소메프라졸만 단독 양성",
+        "chips": [
+          [
+            "5,500만 건",
+            "분석 규모"
+          ],
+          [
+            "3.5년",
+            "발현까지 중앙값"
+          ]
+        ],
+        "pts": [
+          "4개 알고리즘(ROR·PRR·BCPNN·EBGM) 모두에서 양성인 유일한 PPI",
+          "고령·여성·저체중이 독립 위험요인",
+          "자발보고 기반으로 인과관계 입증은 아님"
+        ],
+        "refs": [
+          {
+            "t": "FAERS-based pharmacovigilance and network toxicology analysis of… (2026-08 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42550808/"
+          }
+        ]
+      },
+      {
+        "h": "8주 이상 사용 시 십이지장 점막 변화",
+        "chips": [
+          [
+            "OR 6.10",
+            "보정 오즈비"
+          ],
+          [
+            "47% 대 15%",
+            "백색반점 양성률"
+          ]
+        ],
+        "pts": [
+          "환자 200명 후향 분석 (PPI 58 · P-CAB 42)",
+          "단일기관 관찰연구로 가설생성 수준"
+        ],
+        "refs": [
+          {
+            "t": "Association between Gastric Acid Suppression Therapy and Scattered White Spots in the… (2026-08 · 기타)",
+            "u": "https://doi.org/10.1055/a-2923-5524"
+          }
+        ]
+      },
+      {
+        "h": "우산리뷰 — 위험 신호는 많으나 근거확실성은 낮음",
+        "chips": [
+          [
+            "RR 1.75",
+            "급성신손상"
+          ],
+          [
+            "RR 1.67",
+            "위암"
+          ],
+          [
+            "OR 1.37",
+            "지역사회획득폐렴"
+          ]
+        ],
+        "pts": [
+          "SR/메타분석 36편 종합, 만성신질환 RR 1.35 포함",
+          "AMSTAR-2 대부분 저품질 · GRADE 낮음~매우 낮음",
+          "대부분 관찰연구 기반"
+        ],
+        "refs": [
+          {
+            "t": "Safety of proton pump inhibitors: an overview of systematic reviews and meta-analyses (2026-06 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42303374/"
+          }
+        ]
+      },
+      {
+        "h": "파킨슨병 위험 연관 보고",
+        "chips": [
+          [
+            "344,580명",
+            "6편 메타"
+          ]
+        ],
+        "pts": [
+          "유의한 연관이나 지역별로 유의성이 상이",
+          "전체 근거수준 낮음 — 대규모 전향적 연구 필요"
+        ],
+        "refs": [
+          {
+            "t": "Proton pump inhibitors and risk of Parkinson's disease: A systematic review and… (2026-04 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41984194/"
+          }
+        ]
+      },
+      {
+        "h": "AGA — 위저선용종에서 정당한 PPI는 중단 불필요",
+        "chips": [
+          [
+            "14개",
+            "모범진료권고"
+          ]
+        ],
+        "pts": [
+          "선종성·과형성 용종 시 H. pylori 검사·치료 권고",
+          "위축성위염·장상피화생 동반 시 추가 감시내시경 필요"
+        ],
+        "refs": [
+          {
+            "t": "AGA Clinical Practice Update on Management of Gastric Polyps: Expert Review. (2026-02 · Guideline)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41711625/"
+          }
+        ]
+      },
+      {
+        "h": "고령자 골절 위험 — OR 1.41",
+        "chips": [
+          [
+            "OR 1.41",
+            "95% CI 1.31–1.51"
+          ],
+          [
+            "11건",
+            "관찰연구"
+          ]
+        ],
+        "pts": [
+          "출판편향 없음 · 고품질 9건 포함",
+          "저자들은 신중 처방과 불필요 시 감량 권고"
+        ],
+        "refs": [
+          {
+            "t": "Proton pump inhibitors and risk of fracture in older adults: a systematic review and… (2025-08 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40848405/"
+          }
+        ]
+      },
+      {
+        "h": "클로피도그렐 병용 — 효능 저해 없이 출혈 감소",
+        "chips": [
+          [
+            "RR 1.08",
+            "심혈관사건"
+          ],
+          [
+            "RR 0.13",
+            "위장관출혈"
+          ]
+        ],
+        "pts": [
+          "RCT 14건 메타분석 (저편향위험 5건 포함)",
+          "병용이 항혈소판 효능을 크게 저해하지 않음"
+        ],
+        "refs": [
+          {
+            "t": "Efficacy and Safety of Clopidogrel With and Without a Proton Pump Inhibitor: A… (2025-08 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40685887/"
+          }
+        ]
+      },
+      {
+        "h": "장기 사용과 저위험 위신경내분비종양",
+        "chips": [
+          [
+            "0%",
+            "장기 사용군 원격전이"
+          ],
+          [
+            "62%",
+            "미사용군 원격전이"
+          ]
+        ],
+        "pts": [
+          "산발성 위NET 90명 후향 분석, 50%가 5년 이상 장기 복용 (p<0.0001)",
+          "예후가 양호한 별도 범주 가능성 제기"
+        ],
+        "refs": [
+          {
+            "t": "Association Between Long-Term Proton Pump Inhibitor Use and Low-Risk Gastric… (2025-09 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41028638/"
+          }
+        ]
+      },
+      {
+        "h": "위암 위험인자 엄브렐라리뷰에 장기 사용 포함",
+        "chips": [
+          [
+            "245개",
+            "메타분석 종합"
+          ],
+          [
+            "17개",
+            "클래스 I–II 인자"
+          ]
+        ],
+        "pts": [
+          "117개 위험·보호인자 중 PPI 장기사용이 위험 증가 인자로 분류",
+          "근거수준 클래스 I–II에 해당한 인자는 17개뿐"
+        ],
+        "refs": [
+          {
+            "t": "Risk factors for gastric cancer: an umbrella review of systematic reviews and… (2025-06 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40641920/"
+          }
+        ]
+      },
+      {
+        "h": "조산아에서는 이익·위해 근거 부족",
+        "chips": [
+          [
+            "2건 · 62명",
+            "전체 RCT"
+          ]
+        ],
+        "pts": [
+          "Cochrane 리뷰 결과 심폐호흡사건 효과는 근거가 매우 불확실",
+          "2차 지표에서도 유의한 차이 없음"
+        ],
+        "refs": [
+          {
+            "t": "Safety and efficacy of proton pump inhibitors in preterm infants with… (2025-03 · SR)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40066936/"
+          }
+        ]
+      },
+      {
+        "h": "PCI 환자에서는 출혈 감소가 예후 개선을 매개",
+        "chips": [
+          [
+            "6,457명",
+            "후향 코호트"
+          ]
+        ],
+        "pts": [
+          "PPI 사용군의 위장관출혈 발생률이 낮음",
+          "급성관상동맥증후군에서 전체사망·주요심혈관사건 감소와 유의하게 연관"
+        ],
+        "refs": [
+          {
+            "t": "Proton Pump Inhibitor Use, Gastrointestinal Bleeding Reduction, and Long-Term… (2025-06 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40482871/"
+          }
+        ]
+      },
+      {
+        "h": "심혈관 이상반응 — RCT 자료에서는 연관 불명확",
+        "chips": [],
+        "pts": [
+          "100명 이상·30일 이상 대조시험만 포함",
+          "기존 관찰연구 결과의 재평가 필요성 제기"
+        ],
+        "refs": [
+          {
+            "t": "Proton-Pump Inhibitors and Cardiovascular Adverse Events: A Meta-Analysis of… (2024-08 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39207289/"
+          }
+        ]
+      },
+      {
+        "h": "PCI 후 클로피도그렐 병용 — 제제별 차이 분석",
+        "chips": [],
+        "pts": [
+          "PPI 종류별 주요 심혈관 이상반응 위험 차이를 네트워크 메타분석으로 비교"
+        ],
+        "refs": [
+          {
+            "t": "A network meta-analysis: evaluating the efficacy and safety of concurrent proton pump… (2024-07 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39114562/"
+          }
+        ]
+      },
+      {
+        "h": "복막투석 환자의 복막염 위험",
+        "chips": [],
+        "pts": [
+          "말기신부전 복막투석 환자에서 위산분비억제제 장기 사용과 세균성 복막염 연관 평가"
+        ],
+        "refs": [
+          {
+            "t": "Does the Use of Gastric-Acid Suppressants Increase the Risk of Peritonitis in… (2024-08 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39182173/"
+          }
+        ]
+      },
+      {
+        "h": "만성신질환 발생 위험 연관",
+        "chips": [],
+        "pts": [
+          "PPI 사용이 CKD 발생 위험 증가와 유의하게 연관",
+          "장기 처방 시 신기능 모니터링 필요성 제기"
+        ],
+        "refs": [
+          {
+            "t": "Association between Proton Pump Inhibitor Use and Risk of Incident Chronic Kidney… (2024-06 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39061988/"
+          }
+        ]
+      },
+      {
+        "h": "항암제 병용 시 노출 저해 우려",
+        "chips": [
+          [
+            "451명",
+            "전이성 신세포암"
+          ]
+        ],
+        "pts": [
+          "VEGFR TKI와 병용이 흡수·노출을 저해해 임상결과를 악화시킬 가능성"
+        ],
+        "refs": [
+          {
+            "t": "Concomitant Administration of VEGFR Tyrosine Kinase and Proton Pump Inhibitors May… (2024-06 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39030142/"
+          }
+        ]
+      },
+      {
+        "h": "장기 사용과 위용종",
+        "chips": [
+          [
+            "약 1,000명",
+            "내시경 수검자"
+          ]
+        ],
+        "pts": [
+          "1개월 이상 사용과 위저선용종 등 위용종 발생의 연관 및 위험인자 규명"
+        ],
+        "refs": [
+          {
+            "t": "Gastric Polyps in Long-Term Proton Pump Inhibitor Use: Identification of Risks and… (2024-06 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39006618/"
+          }
+        ]
+      }
+    ],
+    "PCAB": [
+      {
+        "h": "테고프라잔 내약성 — PPI와 유사",
+        "chips": [
+          [
+            "0.97",
+            "이상반응 비율비"
+          ],
+          [
+            "1,386명",
+            "RCT 5건 메타"
+          ]
+        ],
+        "pts": [
+          "95% CI 0.68–1.37로 내약성 <b>비열등</b> 확인",
+          "치유율도 위험비 1.03으로 비열등"
+        ],
+        "refs": [
+          {
+            "t": "Efficacy and Tolerability of Tegoprazan Compared to Proton Pump Inhibitors in the… (2026-07 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42523882/"
+          }
+        ]
+      },
+      {
+        "h": "장기 고가스트린혈증·점막변화 감시 권고 유지",
+        "chips": [],
+        "pts": [
+          "한국 전문가 리뷰가 치료 효과를 인정하면서도 지속 감시 필요성을 재확인",
+          "보노프라잔·테고프라잔·펙수프라잔·케베프라잔·자스타프라잔 5종을 통합 평가"
+        ],
+        "refs": [
+          {
+            "t": "Potassium-competitive Acid Blockers in Gastroesophageal Reflux Disease and Functional… (2026-07 · 기타)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42504651/"
+          }
+        ]
+      },
+      {
+        "h": "계열 간 안전성은 전반적으로 유사",
+        "chips": [
+          [
+            "RCT 39건",
+            "NMA 규모"
+          ]
+        ],
+        "pts": [
+          "미란성 식도염 치료에서 P-CAB과 PPI의 안전성 프로파일 유사",
+          "자스타프라잔·보노프라잔·에소메프라졸 40mg이 라베프라졸·오메프라졸보다 우수"
+        ],
+        "refs": [
+          {
+            "t": "Comparative efficacy and safety of potassium-competitive acid blockers and proton… (2026-02 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41768276/"
+          }
+        ]
+      },
+      {
+        "h": "제균요법에서는 이상반응 이점이 반복 확인",
+        "chips": [
+          [
+            "3,513명",
+            "NMA"
+          ],
+          [
+            "12,714명",
+            "우산리뷰"
+          ]
+        ],
+        "pts": [
+          "테고프라잔-아목시실린 이중요법 — 제균율 동등, 이상반응 유의하게 우수",
+          "메타분석 8편 우산리뷰에서도 테고프라잔 기반이 PPI 기반보다 이상반응 낮음"
+        ],
+        "refs": [
+          {
+            "t": "Tegoprazan-Amoxicillin Dual Therapy Versus Bismuth Quadruple Therapy Versus… (2026-04 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42147649/"
+          }
+        ]
+      },
+      {
+        "h": "내시경 지혈 후 역할은 합의 미도출",
+        "chips": [
+          [
+            "19개",
+            "ESGE 권고사항"
+          ]
+        ],
+        "pts": [
+          "ESGE 2026 소화성궤양 출혈 지침에서 P-CAB 역할 <b>합의 실패</b>"
+        ],
+        "refs": [
+          {
+            "t": "Endoscopic diagnosis and management of peptic ulcer bleeding: European Society of… (2026-05 · Guideline)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/42127996/"
+          }
+        ]
+      },
+      {
+        "h": "보노프라잔 대 란소프라졸 — 이상반응 유사",
+        "chips": [
+          [
+            "4,903명",
+            "RCT 7건"
+          ]
+        ],
+        "pts": [
+          "치유·유지 효과는 우월하나 이상반응 발생률은 동등"
+        ],
+        "refs": [
+          {
+            "t": "Vonoprazan Versus Lansoprazole in the Healing and Maintenance Phase of Erosive… (2025-07 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40742526/"
+          }
+        ]
+      },
+      {
+        "h": "약물상호작용 — 클래리스로마이신 병용 시 노출 증가",
+        "chips": [
+          [
+            "GMR 1.565",
+            "보노프라잔"
+          ],
+          [
+            "GMR 2.624",
+            "테고프라잔"
+          ]
+        ],
+        "pts": [
+          "약동학 연구 37건 SR/메타분석",
+          "보노프라잔의 CYP3A·CYP2C19 억제가 테고프라잔보다 큼"
+        ],
+        "refs": [
+          {
+            "t": "Clinical pharmacokinetics of potassium competitive acid blockers: a systematic review… (2025-07 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40697654/"
+          }
+        ]
+      },
+      {
+        "h": "실제 임상에서 이상반응 격차 뚜렷",
+        "chips": [
+          [
+            "6.1% · 4.9%",
+            "보노프라잔 포함 요법"
+          ],
+          [
+            "45.8%",
+            "비스무스 사제요법"
+          ]
+        ],
+        "pts": [
+          "H. pylori 초치료 255명 전향적 실제임상 연구",
+          "제균율은 세 군 모두 유의한 차이 없음"
+        ],
+        "refs": [
+          {
+            "t": "Vonoprazan-containing Dual and Triple Therapies are Non-inferior to Bismuth-quadruple… (2025-09 · RCT)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41004823/"
+          }
+        ]
+      },
+      {
+        "h": "고용량 이중요법 — 이상반응 절반 수준",
+        "chips": [
+          [
+            "14.56%",
+            "보노프라잔 고용량 이중"
+          ],
+          [
+            "26.00%",
+            "대조군"
+          ]
+        ],
+        "pts": [
+          "RCT 13건 4,023명 메타분석 · 제균율 ITT 88.81% / PP 93.56%",
+          "순응도도 96.29% 대 93.56%로 우수"
+        ],
+        "refs": [
+          {
+            "t": "The efficacy and safety of vonoprazan-based high-dose dual therapy for eradication of… (2025-04 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40220504/"
+          }
+        ]
+      },
+      {
+        "h": "보노프라잔-아목시실린 대 비스무스 사제요법",
+        "chips": [
+          [
+            "86.9% 대 80.4%",
+            "ITT 제균율"
+          ]
+        ],
+        "pts": [
+          "17개 연구 메타분석 · 순응도 RR 1.03",
+          "이상반응은 유의하게 적고 비용도 낮음"
+        ],
+        "refs": [
+          {
+            "t": "Efficacy and safety of vonoprazan-amoxicillin dual therapy versus bismuth-containing… (2025-03 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40177490/"
+          }
+        ]
+      },
+      {
+        "h": "NSAID 궤양 예방에서 P-CAB 비열등 입증",
+        "chips": [
+          [
+            "1.16% 대 2.76%",
+            "24주 궤양 발생률"
+          ]
+        ],
+        "pts": [
+          "한국 32개 기관 423명 24주 RCT",
+          "비열등성 마진 8.3% 만족"
+        ],
+        "refs": [
+          {
+            "t": "Comparing the Efficacy and Safety of Fexuprazan and Lansoprazole for the Prevention… (2025-06 · RCT)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40567214/"
+          }
+        ]
+      },
+      {
+        "h": "소화성궤양 영역 안전성 비교 근거 확대",
+        "chips": [],
+        "pts": [
+          "보노프라잔 대 PPI NMA, P-CAB 대 PPI 메타분석이 잇달아 발표",
+          "치유율과 안전성 지표가 함께 비교됨"
+        ],
+        "refs": [
+          {
+            "t": "Efficacy and safety of vonoprazan versus proton pump inhibitors in the treatment of… (2024-09 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39301419/"
+          }
+        ]
+      },
+      {
+        "h": "요법 구성별 안전성 순위 제시",
+        "chips": [],
+        "pts": [
+          "P-CAB 기반 이중·삼중·사제요법 NMA로 요법 간 상대적 우열 정리",
+          "고용량 아목시실린 이중요법의 이상반응·순응도 자료 축적"
+        ],
+        "refs": [
+          {
+            "t": "Comparative Efficacy and Safety of Potassium-Competitive Acid Blocker-Based Dual… (2024-09 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/39298553/"
+          }
+        ]
+      },
+      {
+        "h": "소화성궤양에서 PPI 대비 우수 또는 비열등",
+        "chips": [
+          [
+            "9,792명",
+            "56개 연구 NMA"
+          ]
+        ],
+        "pts": [
+          "여러 지표에서 P-CAB이 PPI 대비 우수하거나 비열등"
+        ],
+        "refs": [
+          {
+            "t": "Comparative Efficacy and Safety of Potassium-Competitive Acid Blockers vs. Proton… (2024-05 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38931366/"
+          }
+        ]
+      },
+      {
+        "h": "NSAID 병용 약동학 상호작용 확인",
+        "chips": [],
+        "pts": [
+          "펙수프라잔과 세레콕시브·나프록센·멜록시캄 간 1상 교차시험",
+          "NSAID 궤양 예방 목적 병용처방의 안전성 근거"
+        ],
+        "refs": [
+          {
+            "t": "Pharmacokinetic interactions between fexuprazan, a potassium-competitive acid… (2024-05 · RCT)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38700290/"
+          }
+        ]
+      },
+      {
+        "h": "짧은 요법에서 이상반응 이점",
+        "chips": [
+          [
+            "95% 대 93.4%",
+            "제균율"
+          ]
+        ],
+        "pts": [
+          "보노프라잔 1주 삼제요법 vs 에소메프라졸 2주 삼제요법 (122명)",
+          "오심·쓴맛·복통·두통 등 이상반응은 유의하게 적음"
+        ],
+        "refs": [
+          {
+            "t": "Therapeutic efficacy and drug safety comparison of one-week Vonoprazan triple therapy… (2024-03 · RCT)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38591272/"
+          }
+        ]
+      }
+    ],
+    "ZAS": [
+      {
+        "h": "위궤양 3상 — 이상반응 유사, 가스트린 상승은 가역적",
+        "chips": [
+          [
+            "329명",
+            "3상 규모"
+          ]
+        ],
+        "pts": [
+          "이상반응 발생률이 란소프라졸군과 유사",
+          "가스트린은 치료 중 상승 후 종료 시 감소"
+        ],
+        "refs": [
+          {
+            "t": "Randomized, Double-Blind, Active-Controlled, Parallel, Phase 3 Clinical Trial for… (2026-07 · RCT)",
+            "u": "https://doi.org/10.5009/gnl250334"
+          }
+        ]
+      },
+      {
+        "h": "유지요법 장기 안전성 3상 착수 — 결과는 2028년",
+        "chips": [
+          [
+            "384명",
+            "대상"
+          ],
+          [
+            "2028-10",
+            "1차 완료 예정"
+          ]
+        ],
+        "pts": [
+          "치유된 미란성 식도염 대상 JP-1366 10mg 대 란소프라졸 15mg 다국가 3상",
+          "2026년 8월 시작 — 현재 장기 유지 안전성 자료는 없음"
+        ],
+        "refs": [
+          {
+            "t": "A Multicenter, Randomized, Double-blind, Active-controlled, Parallel, Non-inferiority… (2026-08 · RCT)",
+            "u": "https://clinicaltrials.gov/study/NCT07732075"
+          }
+        ]
+      },
+      {
+        "h": "계열 NMA에 포함 — 제품 고유 안전성 신규 자료 없음",
+        "chips": [
+          [
+            "0건",
+            "단독 안전성 원저"
+          ]
+        ],
+        "pts": [
+          "미란성 식도염 NMA 2건에 포함되어 계열 수준 평가를 공유",
+          "이 기간 자스타프라잔 단독 안전성 원저는 없음"
+        ],
+        "refs": [
+          {
+            "t": "Comparative efficacy and safety of potassium-competitive acid blockers and proton… (2026-02 · NMA)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/41768276/"
+          }
+        ]
+      },
+      {
+        "h": "계열 약동학 리뷰에 포함",
+        "chips": [
+          [
+            "37건",
+            "약동학 연구"
+          ]
+        ],
+        "pts": [
+          "개별 약물상호작용 프로파일은 별도 보고되지 않음"
+        ],
+        "refs": [
+          {
+            "t": "Clinical pharmacokinetics of potassium competitive acid blockers: a systematic review… (2025-07 · Meta)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/40697654/"
+          }
+        ]
+      },
+      {
+        "h": "미란성 식도염 3상에서 안전성 포함 비열등",
+        "chips": [
+          [
+            "300명",
+            "3상 규모"
+          ]
+        ],
+        "pts": [
+          "에소메프라졸 대비 효과와 안전성을 함께 평가해 비열등성 확인"
+        ],
+        "refs": [
+          {
+            "t": "Randomized, Double-Blind, Active-Controlled Phase 3 Study to Evaluate Efficacy and… (2024-07 · RCT)",
+            "u": "https://pubmed.ncbi.nlm.nih.gov/38976448/"
+          }
+        ]
+      }
+    ]
+  }
+}

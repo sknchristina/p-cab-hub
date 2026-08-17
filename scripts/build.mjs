@@ -134,8 +134,6 @@ const AREAS = [
 ];
 
 const HIGH = new Set(["Guideline", "NMA", "Meta", "Systematic Review"]);
-const MAIN_AREAS = ["미란성 식도염 치료", "유지요법", "H. pylori 제균 병용",
-  "소화성궤양 치료", "NSAID 관련 위장관 보호", "안전성·장기투여"];
 
 function tag(rows) {
   for (const r of rows) {
@@ -164,7 +162,86 @@ const addDays = (iso, n) => {
   return d.toISOString().slice(0, 10);
 };
 
-function analyze(rows, nar) {
+/* ---- PubMed E-utilities (DB 미등록 가이드라인 보강용) ---- */
+async function fetchWithTimeout(url, ms = 15000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status} — ${url}`);
+    return res;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+function normalizePubDate(s) {
+  if (!s) return "";
+  const MON = { Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
+    Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12" };
+  const m = s.match(/(\d{4})(?:\s+([A-Za-z]{3}))?(?:\s+(\d{1,2}))?/);
+  if (!m) return "";
+  const [, y, mon, day] = m;
+  return `${y}-${mon ? (MON[mon] || "01") : "01"}-${day ? day.padStart(2, "0") : "01"}`;
+}
+
+/* efetch(rettype=abstract) 텍스트에서 PMID별 초록 본문을 추출 */
+function parseAbstracts(text) {
+  const out = {};
+  const parts = text.split(/\nPMID:\s*(\d+)\.?/);
+  for (let i = 0; i < parts.length - 1; i += 2) {
+    const id = parts[i + 1].trim();
+    const blocks = parts[i].split(/\n\n+/).map((b) => b.trim()).filter(Boolean);
+    const aIdx = blocks.findIndex((b) => /^abstract$/i.test(b));
+    out[id] = aIdx !== -1
+      ? blocks.slice(aIdx + 1).join(" ")
+      : blocks.reduce((a, b) => (b.length > a.length ? b : a), "");
+  }
+  return out;
+}
+
+/* PubMed에서 term 조건에 맞는 최신 문헌을 검색해 가이드라인 카드 형태로 반환.
+   Notion DB에 등록되지 않은 최신 국내외 가이드라인도 항상 노출하기 위한 보강 로직.
+   네트워크 오류·타임아웃 시 빈 배열을 반환해 빌드가 죽지 않도록 함. */
+async function fetchPubmedGuidelines(term, limit, nar) {
+  const base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
+  try {
+    const esUrl = `${base}/esearch.fcgi?db=pubmed&retmode=json&retmax=${limit}&sort=pub+date&tool=p-cab-hub-build&term=${encodeURIComponent(term)}`;
+    const esJson = await (await fetchWithTimeout(esUrl)).json();
+    const ids = esJson.esearchresult?.idlist ?? [];
+    if (!ids.length) return [];
+
+    const suUrl = `${base}/esummary.fcgi?db=pubmed&retmode=json&tool=p-cab-hub-build&id=${ids.join(",")}`;
+    const suJson = await (await fetchWithTimeout(suUrl)).json();
+
+    let abstracts = {};
+    try {
+      const efUrl = `${base}/efetch.fcgi?db=pubmed&rettype=abstract&retmode=text&tool=p-cab-hub-build&id=${ids.join(",")}`;
+      abstracts = parseAbstracts(await (await fetchWithTimeout(efUrl)).text());
+    } catch { /* 초록 수집 실패 시 제목만으로 진행 */ }
+
+    return ids.map((id) => {
+      const s = suJson.result?.[id];
+      if (!s || !s.title) return null;
+      const abs = abstracts[id] || "";
+      const note = nar.guidelineNotes?.[`PMID:${id}`]
+        ?? (abs ? abs.split(/(?<=다)\.\s|(?<=음)\.\s|\.\s/).slice(0, 2).join(". ")
+                : "PubMed 초록 수집에 실패했습니다 — 문서 바로가기에서 원문을 확인해주세요.");
+      return {
+        t: s.title.replace(/\.$/, ""),
+        j: s.fulljournalname || s.source || "",
+        pd: normalizePubDate(s.pubdate || s.sortpubdate),
+        u: `https://pubmed.ncbi.nlm.nih.gov/${id}/`,
+        drugs: [], zas: false, note, pmid: id,
+      };
+    }).filter(Boolean);
+  } catch (e) {
+    console.warn(`⚠ PubMed 가이드라인 수집 실패 (${e.message}) — DB 등록분만 표시합니다.`);
+    return [];
+  }
+}
+
+async function analyze(rows, nar) {
   const pcab = rows.filter((r) => r.p);
   const win = [addDays(TODAY, -10), TODAY];
 
@@ -186,44 +263,50 @@ function analyze(rows, nar) {
       return { ...r, sum };
     });
 
-  /* ---- Evidence Landscape ---- */
-  const landscape = AREAS.map(([area]) => {
-    const sub = pcab.filter((r) => r.ar.includes(area));
-    const t = cnt(sub.map((r) => r.ty));
-    const hi = [...HIGH].reduce((s, k) => s + (t.get(k) || 0), 0);
-    const rct = t.get("RCT") || 0;
-    const oth = sub.length - hi - rct;
-    const level = hi >= 5 && rct >= 5 ? "높음" : hi >= 2 || rct >= 3 ? "중간" : "낮음";
-    const note = sub.length === 0 ? "해당 근거 없음"
-      : hi >= rct && hi >= oth ? "지침·메타분석 위주"
-      : rct >= oth ? "RCT 위주" : "관찰연구·원저 위주";
-    const drugs = top(cnt(sub.flatMap((r) => r.d)), 4);
-    return { area, n: sub.length, hi, rct, oth, level, note, drugs,
-             zas: sub.filter((r) => r.d.includes("자스타프라잔")).length };
-  });
+  /* ---- Guidelines (GERD · H.pylori 최신 가이드라인) ---- */
+  const pmidOf = (r) => (r.id.match(/(\d{7,9})/) || [])[1];
+  const guideList = (test) => rows
+    .filter((r) => r.ty === "Guideline" && test(r))
+    .sort((a, b) => b.pd.localeCompare(a.pd))
+    .map((r) => {
+      const pmid = pmidOf(r);
+      const note = nar.guidelineNotes?.[`PMID:${pmid}`] ?? nar.guidelineNotes?.[r.t.slice(0, 60)]
+        ?? r.s.split(/(?<=다)\.\s|(?<=음)\.\s|\.\s/).slice(0, 2).join(". ");
+      // 바로가기는 PMID가 있으면 항상 PubMed로 연결, 없을 때만 등록된 링크(u) 사용
+      const u = pmid ? `https://pubmed.ncbi.nlm.nih.gov/${pmid}/` : r.u;
+      return { t: r.t, j: r.j, pd: r.pd, u, drugs: r.d,
+               zas: r.d.includes("자스타프라잔"), note, pmid };
+    });
+  const isGerd = (r) => r.c === "GERD" || r.ar.includes("미란성 식도염 치료")
+    || r.ar.includes("비미란성 역류질환(NERD)·증상조절");
+  const isHp = (r) => r.c === "Helicobacter pylori" || r.ar.includes("H. pylori 제균 병용");
 
-  const cards = MAIN_AREAS.map((a) => {
-    const L = landscape.find((x) => x.area === a);
-    return { ...L, pts: nar.cardNotes?.[a] ?? [] };
-  });
-  const rest = landscape.filter((L) => !MAIN_AREAS.includes(L.area));
-  const restSub = pcab.filter((r) => r.ar.some((a) => rest.some((x) => x.area === a)));
-  cards.push({
-    area: "기타 영역", level: "—",
-    n: rest.reduce((s, r) => s + r.n, 0), hi: rest.reduce((s, r) => s + r.hi, 0),
-    rct: rest.reduce((s, r) => s + r.rct, 0), oth: rest.reduce((s, r) => s + r.oth, 0),
-    note: "",
-    pts: [...rest].sort((a, b) => b.n - a.n).map((r) => `${r.area} ${r.n}건 (${r.level})`),
-    drugs: top(cnt(restSub.flatMap((r) => r.d)), 4),
-    zas: restSub.filter((r) => r.d.includes("자스타프라잔")).length,
-  });
+  const gerdFromDb = guideList(isGerd);
+  const hpFromDb = guideList(isHp);
 
-  /* ---- News Archive (분기) ---- */
+  // Notion DB에 없는 최신 국내외 GERD 가이드라인을 PubMed에서 직접 보강
+  const GERD_PUBMED_QUERY = '(("gastroesophageal reflux"[MeSH Terms] OR "gastroesophageal reflux disease"[Title] '
+    + 'OR GERD[Title]) AND (guideline[Publication Type] OR practice guideline[Publication Type] '
+    + 'OR consensus development conference[Publication Type]))';
+  const gerdDbPmids = new Set(gerdFromDb.map((g) => g.pmid).filter(Boolean));
+  const gerdFromPubmed = (await fetchPubmedGuidelines(GERD_PUBMED_QUERY, 15, nar))
+    .filter((g) => !gerdDbPmids.has(g.pmid));
+
+  const stripPmid = ({ pmid, ...g }) => g;
+  const gerd = [...gerdFromDb, ...gerdFromPubmed]
+    .sort((a, b) => (b.pd || "").localeCompare(a.pd || ""))
+    .slice(0, 20)
+    .map(stripPmid);
+  const guidelines = { gerd, hp: hpFromDb.map(stripPmid) };
+
+
+  /* ---- News Archive (완료 연도는 연간, 진행 중인 올해는 분기) ---- */
+  const CUR_YEAR = +TODAY.slice(0, 4);
   const Q = new Map();
   for (const r of rows) {
     if (!r.pd || r.pd.slice(0, 7) > TODAY.slice(0, 7) || r.pd < "2024-01-01") continue;
-    const y = +r.pd.slice(0, 4), q = Math.floor((+r.pd.slice(5, 7) - 1) / 3) + 1;
-    const k = `${y} Q${q}`;
+    const y = +r.pd.slice(0, 4);
+    const k = y < CUR_YEAR ? `${y}` : `${y} Q${Math.floor((+r.pd.slice(5, 7) - 1) / 3) + 1}`;
     if (!Q.has(k)) Q.set(k, []);
     Q.get(k).push(r);
   }
@@ -239,9 +322,16 @@ function analyze(rows, nar) {
     const cats = top(cnt(s.map((r) => r.c)), 3);
     const drugs = top(cnt(p.flatMap((r) => r.d)), 4);
     const areas = top(cnt(p.flatMap((r) => r.ar)), 3);
-    const q = +k.slice(-1), yr = k.slice(0, 4);
-    const partial = k === `${TODAY.slice(0, 4)} Q${Math.floor((+TODAY.slice(5, 7) - 1) / 3) + 1}`;
-    const period = `${yr}년 ${QM[q]}${partial ? ` (${+TODAY.slice(5, 7)}월까지)` : ""}`;
+    const isAnnual = /^\d{4}$/.test(k);
+    const yr = k.slice(0, 4);
+    let period;
+    if (isAnnual) {
+      period = `${yr}년`;
+    } else {
+      const q = +k.slice(-1);
+      const partial = k === `${TODAY.slice(0, 4)} Q${Math.floor((+TODAY.slice(5, 7) - 1) / 3) + 1}`;
+      period = `${yr}년 ${QM[q]}${partial ? ` (${+TODAY.slice(5, 7)}월까지)` : ""}`;
+    }
     const pct = Math.round((p.length / s.length) * 100);
     const gl = s.filter((r) => r.ty === "Guideline").length;
     const nma = s.filter((r) => r.ty === "NMA").length;
@@ -258,7 +348,7 @@ function analyze(rows, nar) {
     };
     return {
       m: k, period, n: s.length, p: p.length, hi: hiList.length, rct, cats, drugs,
-      hA: `${cats[0]?.[0] ?? "—"} 중심 분기 — 전체 ${s.length}건 중 P-CAB 관련 ${p.length}건(${pct}%)`,
+      hA: `${cats[0]?.[0] ?? "—"} 중심 ${isAnnual ? "연도" : "분기"} — 전체 ${s.length}건 중 P-CAB 관련 ${p.length}건(${pct}%)`,
       chipsA: [[`${s.length}건`, "전체 출판"], [`${p.length}건`, "P-CAB 관련"],
                [`${hiList.length} / ${rct}건`, "지침·메타분석 / RCT"]],
       ptsA: [
@@ -276,25 +366,21 @@ function analyze(rows, nar) {
     };
   });
 
-  /* ---- Safety Signal (반기) ---- */
-  const H = new Map();
+  /* ---- Safety Signal (누적) ---- */
+  const safeCount = { PPI: 0, PCAB: 0, ZAS: 0 };
   for (const r of rows) {
     if (!r.pd || r.pd < "2024-01-01" || r.pd > TODAY || !r.isSafe) continue;
-    const k = `${r.pd.slice(0, 4)} H${+r.pd.slice(5, 7) <= 6 ? 1 : 2}`;
-    if (!H.has(k)) H.set(k, { PPI: 0, PCAB: 0, ZAS: 0 });
-    const c = H.get(k);
-    if (r.d.includes("자스타프라잔")) c.ZAS++;
-    if (r.p) c.PCAB++; else if (r.isPPI) c.PPI++;
+    if (r.d.includes("자스타프라잔")) safeCount.ZAS++;
+    if (r.p) safeCount.PCAB++; else if (r.isPPI) safeCount.PPI++;
   }
   const NAME = { PPI: "PPI", PCAB: "P-CAB 계열", ZAS: "자스타프라잔" };
-  const safety = [...H.keys()].sort().reverse().map((k) => ({
-    k,
-    period: `${k.slice(0, 4)}년 ${k.endsWith("H1") ? "상반기 (1~6월)" : "하반기 (7~12월)"}`,
+  const safety = {
+    period: `2024년 1월 ~ ${TODAY.slice(0, 4)}년 ${+TODAY.slice(5, 7)}월 (누적)`,
     groups: ["PPI", "PCAB", "ZAS"].map((id) => ({
-      id, name: NAME[id], n: H.get(k)[id],
-      items: nar.safety?.[k]?.[id] ?? [],
+      id, name: NAME[id], n: safeCount[id],
+      items: nar.safety?.[id] ?? [],
     })),
-  }));
+  };
 
   /* ---- 결과 ---- */
   const drugTot = top(cnt(pcab.flatMap((r) => r.d)), 20);
@@ -313,7 +399,7 @@ function analyze(rows, nar) {
     },
     overview: nar.overview ?? [],
     intel: nar.intel ?? { class: [], prod: [], caveat: [] },
-    landscape, cards, archive, safety,
+    archive, safety, guidelines,
   };
 }
 
@@ -333,12 +419,12 @@ function render(data) {
 
 const nar = JSON.parse(fs.readFileSync(path.join(ROOT, "content", "narrative.json"), "utf8"));
 const rows = tag(await fetchAll());
-const data = analyze(rows, nar);
+const data = await analyze(rows, nar);
 const size = render(data);
 
 console.log(`✓ 빌드 완료 — 기준일 ${TODAY}`);
 console.log(`  전체 ${data.total}건 · P-CAB ${data.pcab}건 · 자스타프라잔 ${data.zas}건`);
-console.log(`  Weekly ${data.weekly.length}건(중복 ${data.weekly_dup}건 제외) · 분기 ${data.archive.length}개 · 반기 ${data.safety.length}개`);
+console.log(`  Weekly ${data.weekly.length}건(중복 ${data.weekly_dup}건 제외) · Archive 구간 ${data.archive.length}개 · Safety 누적 그룹 ${data.safety.groups.length}개`);
 console.log(`  dist/index.html — ${Math.round(size / 1024)} KB`);
 
 const missing = data.weekly.filter((r) => !r.sum || r.sum.length < 20);

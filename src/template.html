@@ -98,6 +98,14 @@ main.wrap{padding:38px 30px 40px}
 .tag.GL{background:#fdeee0;color:var(--orange-dk);border-color:#f5d3b4}
 .tag.pc{background:var(--navy-800);color:#fff}
 .tag.dg{background:var(--orange-lt);color:var(--orange-dk);border:1px solid #f2d5b8}
+
+/* guidelines list */
+.glist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.glist li{padding:22px 26px;border-bottom:1px solid var(--line-2)}
+.glist li:last-child{border-bottom:none}
+.glist .gnote{font-size:14.6px;color:var(--ink-2);line-height:1.85;font-weight:500;margin-top:8px}
+.glist .empty{color:var(--ink-3);font-size:14px;padding:16px 26px}
+
 .lvl{display:inline-block;font-size:13.2px;font-weight:800;padding:5px 15px;border-radius:999px;white-space:nowrap}
 .lvl.hi{background:#e6f2ea;color:var(--ok);border:1px solid #bfdcc9}
 .lvl.md{background:#fdf3dc;color:var(--mid);border:1px solid #ecd9a6}
@@ -120,43 +128,6 @@ main.wrap{padding:38px 30px 40px}
 .box .bl.flat .txt{font-size:15px;line-height:1.9;font-weight:500}
 .box .bl.flat .hint{font-size:13.2px;line-height:1.7;margin-top:10px;padding-top:9px;border-top:1px dashed var(--line-2)}
 @media(max-width:980px){.duo{grid-template-columns:1fr}}
-
-/* evidence landscape cards */
-.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
-@media(max-width:1100px){.lgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.lgrid{grid-template-columns:1fr}}
-.lcard{background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);
-  overflow:hidden;display:flex;flex-direction:column;height:100%}
-.lcard-h{padding:18px 26px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;
-  justify-content:space-between;gap:12px}
-.lcard-h .nm{font-size:17.5px;font-weight:800;color:var(--navy-800);letter-spacing:-.02em;line-height:1.4}
-.lcard-b{padding:20px 26px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
-.lnum{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.lnum .big{font-size:34px;font-weight:800;color:var(--navy-800);letter-spacing:-.03em;line-height:1;
-  font-variant-numeric:tabular-nums}
-.lnum .big small{font-size:15px;font-weight:700;color:var(--ink-3);margin-left:3px}
-.lnum .split{font-size:13px;color:var(--ink-3);font-weight:600}
-.lnum .split b{color:var(--navy-700);font-weight:800}
-.lbar{display:flex;height:11px;border-radius:6px;overflow:hidden;background:#eef1f5;border:1px solid var(--line-2)}
-.lbar i{display:block;height:100%}
-.lbar .s1{background:var(--navy-700)} .lbar .s2{background:var(--orange)} .lbar .s3{background:#c9d2dc}
-.ldrugs{display:flex;flex-wrap:wrap;gap:7px}
-.dchip{font-size:12.4px;font-weight:700;padding:4px 10px;border-radius:7px;background:#eef3f9;
-  color:var(--navy-700);border:1px solid var(--line-2);white-space:nowrap}
-.dchip.zas{background:var(--orange-lt);color:var(--orange-dk);border-color:#f2d5b8}
-.dchip.none{background:#fbe9e4;color:var(--low);border-color:#f0cabd}
-.lcard.wide{grid-column:1/-1}
-.lcard.wide .lcard-b{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:20px 28px;align-items:start}
-.lcard.wide .lnum{grid-column:1;align-self:start}
-.lcard.wide .lbar{grid-column:1}
-.lcard.wide .ldrugs{grid-column:1}
-.lcard.wide .pts{grid-column:2;grid-row:1/4;grid-template-columns:repeat(2,1fr);display:grid;gap:10px 26px;align-content:start}
-@media(max-width:760px){.lcard.wide .lcard-b{grid-template-columns:1fr}.lcard.wide .pts{grid-column:1;grid-row:auto;grid-template-columns:1fr}}
-.lnote{font-size:13px;color:var(--ink-3);margin-top:18px;font-weight:500}
-.lnote b{color:var(--navy-700)}
-.lleg{display:flex;gap:18px;flex-wrap:wrap;font-size:12.6px;color:var(--ink-3);margin-top:10px;font-weight:500}
-.lleg span{display:inline-flex;align-items:center;gap:7px}
-.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
 
 /* reference links */
 .refs{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line-2);display:grid;gap:5px}
@@ -301,8 +272,8 @@ tr.open .abs{display:block}
     <button class="tab" role="tab" data-p="p1"><span>📰</span>Weekly Update</button>
     <button class="tab" role="tab" data-p="p1b"><span>🗄️</span>News Archive</button>
     <button class="tab" role="tab" data-p="p2"><span>🧠</span>Evidence Intelligence</button>
-    <button class="tab" role="tab" data-p="p3"><span>🗺️</span>Evidence Landscape</button>
     <button class="tab" role="tab" data-p="p5"><span>🛡️</span>Safety Signal</button>
+    <button class="tab" role="tab" data-p="p6"><span>📋</span>Guidelines</button>
   </div>
 </nav>
 
@@ -331,7 +302,7 @@ tr.open .abs{display:block}
   <!-- ============ 1b. News Archive ============ -->
   <section class="panel" id="p1b">
     <div class="sec-h" style="margin-bottom:16px">
-      <p class="desc">출판일 기준 분기(3개월) 단위 집계 · 분기를 선택하면 해당 기간 요약이 표시됩니다.</p>
+      <p class="desc">출판일 기준 집계 · 완료된 연도는 연간, 진행 중인 올해는 분기(3개월) 단위로 표시됩니다 · 구간을 선택하면 해당 기간 요약이 표시됩니다.</p>
     </div>
     <div class="mrow" id="mrow"></div>
     <ul class="bl" id="archBl"></ul>
@@ -355,22 +326,29 @@ tr.open .abs{display:block}
     <ul class="bl" id="msgCaveat"></ul>
   </section>
 
-  <!-- ============ 3. Evidence Landscape ============ -->
-  <section class="panel" id="p3">
-    <div class="sec-h" style="margin-bottom:16px">
-      <p class="desc">연결 DB의 P-CAB 관련 문헌 278건을 임상 영역별로 집계한 결과입니다.</p>
-    </div>
-    <div class="lgrid" id="lgrid"></div>
-    <p class="lnote">근거 수준 판정 — <b>높음</b> 지침·메타분석 5건 이상 &amp; RCT 5건 이상 · <b>중간</b> 지침·메타분석 2건 이상 또는 RCT 3건 이상 · <b>낮음</b> 그 외</p>
-  </section>
-
   <!-- ============ 5. Safety Signal ============ -->
   <section class="panel" id="p5">
     <div class="sec-h" style="margin-bottom:16px">
-      <p class="desc">출판일 기준 반기(6개월) 단위 · PPI · P-CAB 계열 · 자스타프라잔의 안전성 관련 문헌을 분리 집계했습니다.</p>
+      <p class="desc" id="safeNote">PPI · P-CAB 계열 · 자스타프라잔의 안전성 관련 문헌을 누적 집계하고, 그룹별 핵심 메시지를 함께 정리했습니다.</p>
     </div>
-    <div class="mrow" id="srow"></div>
     <div class="safegrid" id="sgrid"></div>
+  </section>
+
+  <!-- ============ 6. Guidelines ============ -->
+  <section class="panel" id="p6">
+    <div class="sec-h" style="margin-bottom:16px">
+      <p class="desc">GERD·H. pylori 제균 관련 최신 가이드라인 목록입니다. GERD 영역은 연결 DB에 없는 최신 국내외 가이드라인도 PubMed에서 자동으로 보강해 표시합니다. 각 문헌의 P-CAB 관련 핵심 내용을 함께 정리했으며, 모든 문서는 PubMed 원문으로 바로 이동할 수 있습니다.</p>
+    </div>
+    <div class="duo">
+      <section class="box">
+        <header class="box-h navy"><h3>GERD (미란성·비미란성 역류질환)</h3><span class="cnt" id="glGerdCnt"></span></header>
+        <ul class="glist" id="glGerd"></ul>
+      </section>
+      <section class="box">
+        <header class="box-h orange"><h3>H. pylori 제균</h3><span class="cnt" id="glHpCnt"></span></header>
+        <ul class="glist" id="glHp"></ul>
+      </section>
+    </div>
   </section>
 
   <div class="foot">
@@ -505,63 +483,43 @@ $('#zasNote').textContent=`연결 DB 내 자스타프라잔 관련 ${D.zas}건`;
 bullets($('#msgProd'),D.intel.prod);
 bullets($('#msgCaveat'),D.intel.caveat.map(b=>({...b,cls:'warn'})));
 
-/* ---------- 4) Evidence Landscape ---------- */
+/* ---------- 6) Safety Signal (누적) ---------- */
 (function(){
-  const C=D.cards, mx=Math.max(...C.map(c=>c.n));
-  $('#lgrid').innerHTML=C.map(c=>{
-    const w=v=>(c.n?(v/c.n*100):0).toFixed(1);
-    const lv=c.level==='높음'?'hi':(c.level==='중간'?'md':(c.level==='낮음'?'lo':''));
-    const drugs=(c.drugs||[]).map(([k,v])=>`<span class="dchip ${k==='자스타프라잔'?'zas':''}">${esc(k)} ${v}</span>`).join('')
-      + (c.zas?'':`<span class="dchip none">자스타프라잔 0</span>`);
-    return `<article class="lcard${c.area==='기타 영역'?' wide':''}">
-      <header class="lcard-h">
-        <div class="nm">${esc(c.area)}</div>
-        ${lv?`<span class="lvl ${lv}">${esc(c.level)}</span>`:''}
-      </header>
-      <div class="lcard-b">
-        <div class="lnum">
-          <span class="big">${c.n}<small>건</small></span>
-          <span class="split">지침·메타분석 <b>${c.hi}</b> · RCT <b>${c.rct}</b> · 기타 <b>${c.oth}</b></span>
-        </div>
-        <div class="lbar" title="지침·메타분석 ${c.hi} / RCT ${c.rct} / 기타 ${c.oth}">
-          <i class="s1" style="width:${w(c.hi)}%"></i><i class="s2" style="width:${w(c.rct)}%"></i><i class="s3" style="width:${w(c.oth)}%"></i>
-        </div>
-        <div class="ldrugs">${drugs}</div>
-        <ul class="pts sm">${(c.pts||[]).map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
-      </div>
-    </article>`;
-  }).join('')
-  + '';
-  $('.lnote').insertAdjacentHTML('afterend',
-   `<div class="lleg"><span><i class="sw" style="background:var(--navy-700)"></i>지침·메타분석</span>
-    <span><i class="sw" style="background:var(--orange)"></i>RCT</span>
-    <span><i class="sw" style="background:#c9d2dc"></i>기타(관찰연구·원저 등)</span></div>`);
+  const s=D.safety;
+  $('#safeNote').textContent=`${s.period} · PPI · P-CAB 계열 · 자스타프라잔의 안전성 관련 문헌을 누적 집계하고, 그룹별 핵심 메시지를 함께 정리했습니다.`;
+  const CLS={PPI:'ppi',PCAB:'pcab',ZAS:'zas'};
+  $('#sgrid').innerHTML=s.groups.map(g=>`
+    <section class="sbox">
+      <header class="sbox-h ${CLS[g.id]}"><h3>${esc(g.name)}</h3><span class="c">안전성 관련 누적 ${g.n}건</span></header>
+      ${g.items.length? g.items.map(it=>`<div class="sitem">
+          <div class="km-h" style="font-size:16.6px">${rich(it.h)}</div>
+          ${chipHtml(it.chips,'blue')}
+          <ul class="pts sm">${(it.pts||[]).map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
+          ${refHtml(it.refs)}</div>`).join('')
+        : `<div class="snone">연결 DB에 수록된<br>${esc(g.name)} 안전성 핵심 메시지가 아직 작성되지 않았습니다.</div>`}
+    </section>`).join('');
 })();
 
-/* ---------- 6) Safety Signal ---------- */
+/* ---------- 7) Guidelines ---------- */
 (function(){
-  const S=D.safety; let cur=0;
-  $('#srow').innerHTML=S.map((s,i)=>`<button class="mbtn${i===0?' on':''}" data-i="${i}">${esc(s.k)}</button>`).join('');
-  const CLS={PPI:'ppi',PCAB:'pcab',ZAS:'zas'};
-  function draw(){
-    const s=S[cur];
-    $('#sgrid').innerHTML=s.groups.map(g=>`
-      <section class="sbox">
-        <header class="sbox-h ${CLS[g.id]}"><h3>${esc(g.name)}</h3><span class="c">안전성 관련 ${g.n}건</span></header>
-        ${g.items.length? g.items.map(it=>`<div class="sitem">
-            <div class="km-h" style="font-size:16.6px">${rich(it.h)}</div>
-            ${chipHtml(it.chips,'blue')}
-            <ul class="pts sm">${(it.pts||[]).map(p=>`<li>${rich(p)}</li>`).join('')}</ul>
-            ${refHtml(it.refs)}</div>`).join('')
-          : `<div class="snone">${s.period} 중 연결 DB에 수록된<br>자스타프라잔 안전성 문헌이 없습니다.</div>`}
-      </section>`).join('');
+  function itemHtml(g){
+    return `<li>
+      <div style="margin-bottom:5px">
+        <span class="tag ty GL">가이드라인</span>${g.zas?'<span class="tag pc">자스타프라잔</span>':''}${g.drugs.slice(0,2).map(d=>`<span class="tag dg">${esc(d)}</span>`).join('')}
+      </div>
+      <div class="ttl">${esc(g.t)}</div>
+      <div class="jrn">${esc(g.pd)}${g.pd&&g.j?' · ':''}${esc(g.j)}</div>
+      <div class="gnote">${rich(g.note)}</div>
+      <div class="lnk">${g.u?`<a href="${esc(g.u)}" target="_blank" rel="noopener">PubMed에서 원문 보기 ↗</a>`:'<span>원문 링크 미등록</span>'}</div>
+    </li>`;
   }
-  $('#srow').addEventListener('click',e=>{
-    const b=e.target.closest('.mbtn'); if(!b) return;
-    [...$('#srow').children].forEach(x=>x.classList.remove('on')); b.classList.add('on');
-    cur=+b.dataset.i; draw();
-  });
-  draw();
+  const GL=D.guidelines||{gerd:[],hp:[]};
+  $('#glGerdCnt').textContent=`${GL.gerd.length}건`;
+  $('#glHpCnt').textContent=`${GL.hp.length}건`;
+  $('#glGerd').innerHTML=GL.gerd.length? GL.gerd.map(itemHtml).join('')
+    : `<li class="empty">등록된 GERD 가이드라인이 없습니다.</li>`;
+  $('#glHp').innerHTML=GL.hp.length? GL.hp.map(itemHtml).join('')
+    : `<li class="empty">등록된 H. pylori 가이드라인이 없습니다.</li>`;
 })();
 </script>
 </body>

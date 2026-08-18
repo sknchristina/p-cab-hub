@@ -405,11 +405,25 @@ async function analyze(rows, nar) {
 
 /* ══════════════════════ 4. 렌더 ══════════════════════ */
 
-function render(data) {
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function render(data) {
   const tpl = fs.readFileSync(path.join(ROOT, "src", "template.html"), "utf8");
   const marker = "/* ==== DATA ==== */";
   if (!tpl.includes(marker)) throw new Error("template.html 에 DATA 자리표시자가 없습니다.");
-  const html = tpl.replace(marker, `window.APP=${JSON.stringify(data)};`);
+  let html = tpl.replace(marker, `window.APP=${JSON.stringify(data)};`);
+
+  // GitHub Pages 비번 게이트 — SITE_PASSWORD가 설정된 경우에만 해시를 주입.
+  // 해시만 클라이언트 코드에 노출되므로 평문보다는 낫지만, 서버 인증이 아니라는 점은 동일함.
+  const pwMarker = "/* ==== PW_HASH ==== */";
+  if (!html.includes(pwMarker)) throw new Error("template.html 에 PW_HASH 자리표시자가 없습니다.");
+  const pw = process.env.SITE_PASSWORD || "";
+  const pwHash = pw ? await sha256Hex(pw) : "";
+  html = html.replace(pwMarker, `window.PW_HASH=${JSON.stringify(pwHash)};`);
+
   fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, "index.html"), html);
   return html.length;
@@ -420,7 +434,7 @@ function render(data) {
 const nar = JSON.parse(fs.readFileSync(path.join(ROOT, "content", "narrative.json"), "utf8"));
 const rows = tag(await fetchAll());
 const data = await analyze(rows, nar);
-const size = render(data);
+const size = await render(data);
 
 console.log(`✓ 빌드 완료 — 기준일 ${TODAY}`);
 console.log(`  전체 ${data.total}건 · P-CAB ${data.pcab}건 · 자스타프라잔 ${data.zas}건`);

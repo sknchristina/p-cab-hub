@@ -251,9 +251,35 @@ tr.open .abs{display:block}
   .tab{min-width:118px;font-size:12.6px;padding:11px 12px 10px}
 }
 @media print{.tabbar,.expand,.mrow{display:none}.panel{display:block!important;page-break-before:always}body{background:#fff}}
+
+/* 비번 게이트 (클라이언트측 간이 잠금 — 진짜 인증 아님) */
+#pwGate{position:fixed;inset:0;z-index:9999;background:var(--bg,#fdf3e7);
+  display:flex;align-items:center;justify-content:center;padding:20px}
+#pwGate .box{width:100%;max-width:360px;background:var(--paper,#fff);border:1px solid var(--line,#e4e0d8);
+  border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.08);padding:32px 28px;text-align:center}
+#pwGate h2{font-size:18px;font-weight:800;color:var(--navy-800,#1c2f4a);margin-bottom:8px}
+#pwGate p{font-size:13.5px;color:var(--ink-3,#8a94a3);margin-bottom:20px;line-height:1.6}
+#pwGate input{width:100%;box-sizing:border-box;padding:11px 14px;border:1px solid var(--line-2,#d9d3c7);
+  border-radius:9px;font-size:15px;margin-bottom:12px;text-align:center}
+#pwGate button{width:100%;padding:11px 14px;border:0;border-radius:9px;background:var(--navy-700,#274a78);
+  color:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
+#pwGate button:hover{opacity:.92}
+#pwGate .err{color:#c0392b;font-size:13px;margin-top:10px;min-height:16px}
+body.gated{overflow:hidden}
+body.gated .wrap,body.gated .hdr,body.gated main{visibility:hidden}
 </style>
 </head>
 <body>
+
+<div id="pwGate" style="display:none">
+  <div class="box">
+    <h2>🔒 P-CAB Intelligence Hub</h2>
+    <p>비밀번호를 입력해 주세요.</p>
+    <input type="password" id="pwInput" placeholder="비밀번호" autocomplete="off">
+    <button id="pwSubmit">입장</button>
+    <div class="err" id="pwErr"></div>
+  </div>
+</div>
 
 <header class="hdr">
   <div class="wrap hdr-in">
@@ -358,6 +384,44 @@ tr.open .abs{display:block}
 </main>
 
 <script>/* ==== DATA ==== */</script>
+<script>/* ==== PW_HASH ==== */</script>
+<script>
+(function(){
+  if (!window.PW_HASH) return; // 비번 미설정 시 게이트 건너뜀
+  var SESSION_KEY = "pcab_gate_ok";
+  if (sessionStorage.getItem(SESSION_KEY) === "1") return;
+
+  document.body.classList.add("gated");
+  var gate = document.getElementById("pwGate");
+  gate.style.display = "flex";
+  var input = document.getElementById("pwInput");
+  var btn = document.getElementById("pwSubmit");
+  var err = document.getElementById("pwErr");
+
+  async function sha256Hex(text) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  async function tryUnlock() {
+    var val = input.value || "";
+    var hash = await sha256Hex(val);
+    if (hash === window.PW_HASH) {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      gate.style.display = "none";
+      document.body.classList.remove("gated");
+    } else {
+      err.textContent = "비밀번호가 올바르지 않습니다.";
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  btn.addEventListener("click", tryUnlock);
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") tryUnlock(); });
+  setTimeout(function(){ input.focus(); }, 50);
+})();
+</script>
 <script>
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];

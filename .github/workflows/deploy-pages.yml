@@ -1,0 +1,56 @@
+name: Build and Deploy to GitHub Pages
+
+# 트리거 1) main 브랜치에 커밋될 때마다 즉시 재배포
+#      2) 매주 월요일 08:00 KST(= 일요일 23:00 UTC)에 자동으로 Notion 데이터를 다시 수집해 재배포
+#      3) Actions 탭에서 수동 실행도 가능
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 23 * * 0'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시에 두 배포가 겹치지 않도록 큐잉
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설치
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 빌드 (Notion 수집 → HTML 생성)
+        run: node scripts/build.mjs
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATA_SOURCE: ${{ secrets.NOTION_DATA_SOURCE }}
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+
+      - name: Pages 배포용 아티팩트 업로드
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages에 배포
+        id: deployment
+        uses: actions/deploy-pages@v4
